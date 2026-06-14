@@ -10,6 +10,11 @@ import { LoginPage } from './routes/LoginPage'
 const Dashboard = lazy(() =>
   import('./routes/Dashboard').then((m) => ({ default: m.Dashboard })),
 )
+const StudentDashboard = lazy(() =>
+  import('./routes/StudentDashboard').then((m) => ({
+    default: m.StudentDashboard,
+  })),
+)
 const CoursePage = lazy(() =>
   import('./routes/CoursePage').then((m) => ({ default: m.CoursePage })),
 )
@@ -36,6 +41,17 @@ function RequireAuth({ children }) {
   return children
 }
 
+// The home surface differs by role: analytics for teachers, courses +
+// personalized recommendations for students.
+function HomeIndex() {
+  const { isTeacher } = useAuth()
+  return (
+    <Suspense fallback={<RouteFallback />}>
+      {isTeacher ? <Dashboard /> : <StudentDashboard />}
+    </Suspense>
+  )
+}
+
 export default function App() {
   return (
     <Routes>
@@ -47,14 +63,7 @@ export default function App() {
           </RequireAuth>
         }
       >
-        <Route
-          index
-          element={
-            <Suspense fallback={<RouteFallback />}>
-              <Dashboard />
-            </Suspense>
-          }
-        />
+        <Route index element={<HomeIndex />} />
         <Route
           path="courses/:courseId"
           element={

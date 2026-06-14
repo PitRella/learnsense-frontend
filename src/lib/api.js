@@ -74,4 +74,12 @@ export const api = {
 
   modulePerformance: (token, moduleId) =>
     request(`/analytics/modules/${moduleId}/performance`, { token }),
+
+  listRecommendations: (token) => request('/recommendations/', { token }),
+  updateRecommendation: (token, id, status) =>
+    request(`/recommendations/${id}`, {
+      method: 'PATCH',
+      token,
+      body: { status },
+    }),
 }

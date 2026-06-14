@@ -52,6 +52,29 @@ export function useCreateModule(courseId) {
   })
 }
 
+export function useRecommendations({ poll = false } = {}) {
+  const { token } = useAuth()
+  return useQuery({
+    queryKey: ['recommendations'],
+    queryFn: () => api.listRecommendations(token),
+    enabled: Boolean(token),
+    // Recommendations are produced asynchronously by the Celery engine;
+    // poll so freshly generated ones surface without a manual reload.
+    refetchInterval: poll ? 5000 : false,
+  })
+}
+
+export function useUpdateRecommendation() {
+  const { token } = useAuth()
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, status }) =>
+      api.updateRecommendation(token, id, status),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ['recommendations'] }),
+  })
+}
+
 export function useUpdateWeights(courseId) {
   const { token } = useAuth()
   const qc = useQueryClient()
