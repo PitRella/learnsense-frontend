@@ -1,0 +1,128 @@
+.wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+/* Left — editorial brand statement on warm paper. */
+.brand {
+  position: relative;
+  padding: var(--sp-8) var(--sp-8) var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: var(--border);
+  overflow: hidden;
+}
+.brand::after {
+  /* faint oversized index-arc watermark */
+  content: '';
+  position: absolute;
+  right: -22%;
+  bottom: -28%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid var(--hairline-strong);
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(45deg);
+  opacity: 0.5;
+}
+
+.kicker {
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.headline {
+  font-size: var(--text-display);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin-top: auto;
+  max-width: 11ch;
+}
+.headline em {
+  font-style: italic;
+  color: var(--clay);
+}
+
+.lede {
+  margin-top: var(--sp-5);
+  max-width: 42ch;
+  color: var(--ink-soft);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.metaRow {
+  margin-top: var(--sp-7);
+  display: flex;
+  gap: var(--sp-6);
+}
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.metaItem b {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--pine);
+}
+.metaItem span {
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* Right — the sign-in panel. */
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-7);
+  background: var(--surface-raised);
+}
+.form {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+.formHead h2 {
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+}
+.formHead p {
+  margin-top: var(--sp-2);
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+.errorBox {
+  background: var(--risk-tint);
+  color: var(--risk);
+  border-radius: var(--radius);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--text-sm);
+}
+.foot {
+  font-size: var(--text-sm);
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+@media (max-width: 860px) {
+  .wrap {
+    grid-template-columns: 1fr;
+  }
+  .brand {
+    border-right: none;
+    border-bottom: var(--border);
+    min-height: 42vh;
+  }
+}
