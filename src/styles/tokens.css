@@ -1,0 +1,78 @@
+/* LearnSense design tokens — "Editorial Academia".
+   Warm paper + ink, a single calm pine accent, terracotta/clay for warmth
+   and risk, olive for pass. Hairline borders, restrained radii, generous
+   rhythm. One serif display (Fraunces), one grotesque body (Hanken),
+   one mono for data figures (JetBrains Mono). */
+
+:root {
+  /* — Paper & ink — */
+  --paper: #f3eee2;
+  --paper-2: #efe8d8;
+  --surface: #fcfaf3;
+  --surface-raised: #fffdf8;
+  --ink: #1f1b15;
+  --ink-soft: #6d655a;
+  --ink-faint: #9a9183;
+  --hairline: #e3dac8;
+  --hairline-strong: #d4c8b0;
+
+  /* — Accents — */
+  --pine: #2f5a4c; /* brand / primary */
+  --pine-deep: #234539;
+  --pine-tint: #e7ede6;
+  --clay: #c0633b; /* warm highlight */
+  --clay-tint: #f3e4d6;
+  --gold: #a8842f; /* top-metric emphasis */
+
+  /* — Semantic (analytics) — */
+  --risk: #b23b2e;
+  --risk-tint: #f3ddd6;
+  --pass: #4f6b3d;
+  --pass-tint: #e4ead9;
+  --watch: #b07e2b;
+  --watch-tint: #f1e6cd;
+
+  /* — Type — */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.85rem;
+  --text-base: 0.975rem;
+  --text-md: 1.075rem;
+  --text-lg: 1.35rem;
+  --text-xl: 1.85rem;
+  --text-2xl: 2.6rem;
+  --text-3xl: 3.6rem;
+  --text-display: clamp(3rem, 7vw, 5.5rem);
+
+  /* — Spacing scale — */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* — Radii & lines — */
+  --radius-sm: 5px;
+  --radius: 9px;
+  --radius-lg: 16px;
+  --border: 1px solid var(--hairline);
+  --border-strong: 1px solid var(--hairline-strong);
+
+  /* — Shadows (soft, paper-like) — */
+  --shadow-sm: 0 1px 2px rgba(40, 30, 16, 0.05);
+  --shadow: 0 6px 24px -12px rgba(40, 30, 16, 0.22);
+  --shadow-lg: 0 24px 60px -28px rgba(40, 30, 16, 0.32);
+
+  /* — Motion — */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --maxw: 1180px;
+}
