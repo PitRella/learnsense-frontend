@@ -82,14 +82,16 @@ export function RecommendationsPanel() {
 
                   <div className={styles.body}>
                     <div className={styles.title}>
-                      Матеріал #{rec.material_id}
+                      {rec.material_title || `Матеріал #${rec.material_id}`}
                     </div>
                     <p className={styles.reason}>
                       {rec.reason ||
                         'Рекомендовано для усунення прогалини в проблемному модулі.'}
                     </p>
                     <div className={styles.meta}>
-                      <span>Модуль #{rec.module_id}</span>
+                      <span>
+                        {rec.module_title || `Модуль #${rec.module_id}`}
+                      </span>
                       <Badge tone={status.tone}>{status.label}</Badge>
                     </div>
                   </div>

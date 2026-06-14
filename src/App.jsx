@@ -5,6 +5,7 @@ import { AppShell } from './components/layout/AppShell'
 import { Spinner } from './components/ui/Spinner'
 import { useAuth } from './lib/auth'
 import { LoginPage } from './routes/LoginPage'
+import { RegisterPage } from './routes/RegisterPage'
 
 // Code-split the authenticated surfaces so the login screen stays light.
 const Dashboard = lazy(() =>
@@ -22,6 +23,9 @@ const ModulePerformancePage = lazy(() =>
   import('./routes/ModulePerformancePage').then((m) => ({
     default: m.ModulePerformancePage,
   })),
+)
+const MaterialPage = lazy(() =>
+  import('./routes/MaterialPage').then((m) => ({ default: m.MaterialPage })),
 )
 
 function RouteFallback() {
@@ -56,6 +60,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
       <Route
         element={
           <RequireAuth>
@@ -77,6 +82,14 @@ export default function App() {
           element={
             <Suspense fallback={<RouteFallback />}>
               <ModulePerformancePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="courses/:courseId/materials/:materialId"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <MaterialPage />
             </Suspense>
           }
         />

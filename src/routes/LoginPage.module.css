@@ -115,6 +115,39 @@
   color: var(--ink-faint);
   text-align: center;
 }
+.foot a {
+  font-weight: 600;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+
+.roleToggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  background: var(--paper-2);
+  border-radius: var(--radius);
+}
+.roleBtn {
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-soft);
+  transition: background 0.16s var(--ease), color 0.16s var(--ease);
+}
+.roleActive {
+  background: var(--surface-raised);
+  color: var(--pine);
+  box-shadow: var(--shadow-sm);
+}
 
 @media (max-width: 860px) {
   .wrap {

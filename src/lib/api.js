@@ -53,6 +53,7 @@ export const api = {
     }),
   signup: (data) =>
     request('/auth/signup', { method: 'POST', body: data }),
+  me: (token) => request('/auth/me', { token }),
 
   listCourses: (token) => request('/courses/', { token }),
   createCourse: (token, body) =>
@@ -82,4 +83,7 @@ export const api = {
       token,
       body: { status },
     }),
+
+  logActivity: (token, body) =>
+    request('/analytics/activity-logs', { method: 'POST', token, body }),
 }

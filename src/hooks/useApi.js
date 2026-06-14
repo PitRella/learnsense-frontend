@@ -3,6 +3,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { useAuth } from '../lib/auth'
 
+export function useMe() {
+  const { token } = useAuth()
+  return useQuery({
+    queryKey: ['me'],
+    queryFn: () => api.me(token),
+    enabled: Boolean(token),
+    staleTime: 5 * 60_000,
+  })
+}
+
 export function useCourses() {
   const { token } = useAuth()
   return useQuery({

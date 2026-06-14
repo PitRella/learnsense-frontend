@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
@@ -142,7 +142,7 @@ export function LoginPage() {
           </Button>
 
           <p className={styles.foot}>
-            Демо-стек: FastAPI · Celery · PostgreSQL · Redis
+            Немає акаунту? <Link to="/register">Зареєструватися</Link>
           </p>
         </motion.form>
       </section>

@@ -69,12 +69,18 @@ export function CoursePage() {
                 {m.materials?.length > 0 && (
                   <ul className={styles.matList}>
                     {m.materials.map((mat) => (
-                      <li key={mat.id} className={styles.mat}>
-                        <span className={styles.matType}>
-                          {MATERIAL_LABEL[mat.material_type] ||
-                            mat.material_type}
-                        </span>
-                        <span>{mat.title}</span>
+                      <li key={mat.id}>
+                        <Link
+                          to={`/courses/${id}/materials/${mat.id}`}
+                          className={styles.mat}
+                        >
+                          <span className={styles.matType}>
+                            {MATERIAL_LABEL[mat.material_type] ||
+                              mat.material_type}
+                          </span>
+                          <span>{mat.title}</span>
+                          <span className={styles.matGo}>→</span>
+                        </Link>
                       </li>
                     ))}
                   </ul>

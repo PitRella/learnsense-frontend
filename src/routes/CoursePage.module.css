@@ -111,6 +111,22 @@
   gap: var(--sp-3);
   font-size: var(--text-sm);
   color: var(--ink-soft);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color 0.15s var(--ease);
+}
+.mat:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+.matGo {
+  margin-left: auto;
+  color: var(--pine);
+  opacity: 0;
+  transition: opacity 0.15s var(--ease);
+}
+.mat:hover .matGo {
+  opacity: 1;
 }
 .matType {
   font-size: var(--text-xs);

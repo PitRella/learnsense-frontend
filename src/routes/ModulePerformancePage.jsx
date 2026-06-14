@@ -177,7 +177,7 @@ export function ModulePerformancePage() {
                 >
                   <div className={styles.student}>
                     <span className={styles.studentName}>
-                      Студент #{r.student_id}
+                      {r.student_name || `Студент #${r.student_id}`}
                     </span>
                     <Badge tone={tone}>{toneLabel}</Badge>
                   </div>

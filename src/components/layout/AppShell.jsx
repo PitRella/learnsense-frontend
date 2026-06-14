@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 
+import { useMe } from '../../hooks/useApi'
 import { useAuth } from '../../lib/auth'
 import { Button } from '../ui/Button'
 import { Logo } from '../ui/Logo'
@@ -9,6 +10,7 @@ const cx = (...c) => c.filter(Boolean).join(' ')
 
 export function AppShell() {
   const { role, logout } = useAuth()
+  const { data: me } = useMe()
   const roleLabel = role === 'TEACHER' ? 'Викладач' : 'Студент'
 
   return (
@@ -29,6 +31,7 @@ export function AppShell() {
           </NavLink>
         </nav>
         <div className={styles.right}>
+          {me && <span className={styles.who}>{me.name}</span>}
           <span className={styles.role}>{roleLabel}</span>
           <Button variant="ghost" size="sm" onClick={logout}>
             Вийти

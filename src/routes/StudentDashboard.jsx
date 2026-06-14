@@ -3,16 +3,28 @@ import { Link } from 'react-router-dom'
 import { RecommendationsPanel } from '../components/RecommendationsPanel'
 import { Card } from '../components/ui/Card'
 import { Spinner } from '../components/ui/Spinner'
-import { useCourses } from '../hooks/useApi'
+import { useCourses, useMe } from '../hooks/useApi'
 
 export function StudentDashboard() {
   const { data: courses, isLoading } = useCourses()
+  const { data: me } = useMe()
 
   return (
     <div>
       <header
         style={{ marginBottom: 'var(--sp-7)', maxWidth: '54ch' }}
       >
+        <p
+          style={{
+            fontSize: 'var(--text-xs)',
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            color: 'var(--ink-faint)',
+            marginBottom: 'var(--sp-2)',
+          }}
+        >
+          {me ? `Вітаємо, ${me.name}` : 'Вітаємо'}
+        </p>
         <h1
           style={{
             fontSize: 'var(--text-2xl)',
