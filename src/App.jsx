@@ -1,0 +1,78 @@
+import { Suspense, lazy } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+
+import { AppShell } from './components/layout/AppShell'
+import { Spinner } from './components/ui/Spinner'
+import { useAuth } from './lib/auth'
+import { LoginPage } from './routes/LoginPage'
+
+// Code-split the authenticated surfaces so the login screen stays light.
+const Dashboard = lazy(() =>
+  import('./routes/Dashboard').then((m) => ({ default: m.Dashboard })),
+)
+const CoursePage = lazy(() =>
+  import('./routes/CoursePage').then((m) => ({ default: m.CoursePage })),
+)
+const ModulePerformancePage = lazy(() =>
+  import('./routes/ModulePerformancePage').then((m) => ({
+    default: m.ModulePerformancePage,
+  })),
+)
+
+function RouteFallback() {
+  return (
+    <div style={{ display: 'grid', placeItems: 'center', minHeight: '50vh' }}>
+      <Spinner size={22} label="Завантаження…" />
+    </div>
+  )
+}
+
+function RequireAuth({ children }) {
+  const { isAuthenticated } = useAuth()
+  const location = useLocation()
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace state={{ from: location }} />
+  }
+  return children
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        element={
+          <RequireAuth>
+            <AppShell />
+          </RequireAuth>
+        }
+      >
+        <Route
+          index
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <Dashboard />
+            </Suspense>
+          }
+        />
+        <Route
+          path="courses/:courseId"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <CoursePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="courses/:courseId/modules/:moduleId"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <ModulePerformancePage />
+            </Suspense>
+          }
+        />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  )
+}
