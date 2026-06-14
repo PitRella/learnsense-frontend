@@ -1,0 +1,26 @@
+.card {
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: clip;
+}
+
+.padded {
+  padding: var(--sp-5);
+}
+
+.raised {
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+/* A thin accent rule along the top edge, used to color-code cards. */
+.accentTop::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--card-accent, var(--pine));
+}
