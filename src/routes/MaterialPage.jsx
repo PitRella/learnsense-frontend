@@ -49,7 +49,7 @@ export function MaterialPage() {
       const seconds = Math.round((Date.now() - startedAt.current) / 1000)
       if (seconds < MIN_LOGGED_SECONDS || !token) return
       api
-        .logActivity(token, {
+        .logActivity({
           material_id: mId,
           time_spent_sec: seconds,
           opened_links: 0,

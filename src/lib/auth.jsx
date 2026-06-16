@@ -2,64 +2,46 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react'
 
 import { api } from './api'
+import * as authStore from './authStore'
 
 const AuthContext = createContext(null)
-const STORAGE_KEY = 'learnsense.auth'
-
-// Decode the `sub` (user id) from a JWT payload without verifying it —
-// the backend does not expose a /me endpoint, so we read the subject
-// client-side purely for UI scoping (filtering a teacher's own courses).
-function decodeUserId(token) {
-  try {
-    const [, payload] = token.split('.')
-    const json = JSON.parse(
-      atob(payload.replace(/-/g, '+').replace(/_/g, '/')),
-    )
-    return json.sub ? Number(json.sub) : null
-  } catch {
-    return null
-  }
-}
-
-function readStored() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
-}
 
 export function AuthProvider({ children }) {
-  const [session, setSession] = useState(readStored)
+  const [session, setSession] = useState(authStore.getState)
+
+  // Mirror store changes into React state so a forced logout (a failed
+  // background refresh) re-renders the app and bounces to /login.
+  useEffect(() => authStore.subscribe(setSession), [])
 
   const login = useCallback(async (email, password) => {
     const res = await api.login(email, password)
-    const next = {
-      token: res.access_token,
-      refreshToken: res.refresh_token,
-      role: res.user_role,
-      userId: decodeUserId(res.access_token),
-    }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-    setSession(next)
-    return next
+    authStore.setSession(authStore.sessionFromTokens(res))
   }, [])
 
-  const logout = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY)
-    setSession(null)
+  const logout = useCallback(async () => {
+    const current = authStore.getState()
+    if (current?.refresh) {
+      try {
+        await api.logout(current.refresh)
+      } catch {
+        // Best-effort: clear locally even if the call fails.
+      }
+    }
+    authStore.clearSession()
   }, [])
 
   const value = useMemo(
     () => ({
-      ...session,
-      isAuthenticated: Boolean(session?.token),
+      token: session?.access || null,
+      role: session?.role || null,
+      userId: session?.userId || null,
+      isAuthenticated: Boolean(session?.access),
       isTeacher: session?.role === 'TEACHER',
       login,
       logout,
