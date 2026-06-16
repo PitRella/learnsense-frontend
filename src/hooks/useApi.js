@@ -99,6 +99,29 @@ export function useUpdateRecommendation() {
   })
 }
 
+export function useQuiz(materialId) {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['quiz', materialId],
+    queryFn: () => api.getQuiz(materialId),
+    enabled: isAuthenticated && Boolean(materialId),
+  })
+}
+
+export function useSubmitQuiz(materialId) {
+  return useMutation({
+    mutationFn: (answers) => api.submitQuiz(materialId, answers),
+  })
+}
+
+export function useAddQuestion(materialId) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (body) => api.addQuestion(materialId, body),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['quiz', materialId] }),
+  })
+}
+
 export function useUploadMaterialFile(courseId) {
   const qc = useQueryClient()
   return useMutation({

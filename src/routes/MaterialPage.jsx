@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import { Button } from '../components/ui/Button'
+import { Quiz } from '../components/Quiz'
 import { Spinner } from '../components/ui/Spinner'
 import {
   useMaterialDownload,
@@ -99,7 +99,7 @@ export function MaterialPage() {
         {material.material_type === 'TEST' && (
           <div className={styles.test}>
             <Content content={material.content} />
-            <Button disabled>Почати тест (демо)</Button>
+            <Quiz materialId={mId} isTeacher={isTeacher} />
           </div>
         )}
 

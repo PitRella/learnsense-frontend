@@ -101,6 +101,19 @@ export const api = {
     }),
   materialDownloadUrl: (materialId) =>
     request(`/courses/materials/${materialId}/file`),
+
+  getQuiz: (materialId) =>
+    request(`/courses/materials/${materialId}/quiz`),
+  addQuestion: (materialId, body) =>
+    request(`/courses/materials/${materialId}/questions`, {
+      method: 'POST',
+      body,
+    }),
+  submitQuiz: (materialId, answers) =>
+    request(`/analytics/test-results/${materialId}/submit`, {
+      method: 'POST',
+      body: { answers },
+    }),
 }
 
 // Upload a file straight to object storage using a presigned PUT URL.

@@ -1,0 +1,114 @@
+.quiz {
+  margin-top: var(--sp-6);
+  display: grid;
+  gap: var(--sp-5);
+}
+.question {
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--sp-5);
+}
+.qText {
+  font-weight: 600;
+  font-size: var(--text-md);
+  margin-bottom: var(--sp-4);
+}
+.options {
+  display: grid;
+  gap: var(--sp-2);
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+}
+.option:hover {
+  border-color: var(--pine);
+}
+.optionChecked {
+  border-color: var(--pine);
+  background: var(--pine-tint);
+}
+.option input {
+  accent-color: var(--pine);
+}
+
+.submitRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-5);
+  border-radius: var(--radius-lg);
+  border: var(--border);
+  background: var(--surface-raised);
+}
+.scoreBig {
+  font-family: var(--font-mono);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1;
+}
+.scorePass {
+  color: var(--pass);
+}
+.scoreRisk {
+  color: var(--risk);
+}
+.resultMeta {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+.resultNote {
+  margin-top: 4px;
+  color: var(--ink-faint);
+  font-size: var(--text-xs);
+}
+
+/* — Teacher authoring — */
+.author {
+  margin-top: var(--sp-5);
+  border: 1px dashed var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  display: grid;
+  gap: var(--sp-4);
+}
+.authorTitle {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.optEdit {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.optEdit input[type='text'] {
+  flex: 1;
+  height: 40px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+}
+.optEdit label {
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  white-space: nowrap;
+}
