@@ -106,22 +106,42 @@ export function CoursePage() {
           ) : modules && modules.length > 0 ? (
             <div className={styles.modList}>
               {modules.map((m, i) => (
-                <Link
-                  key={m.id}
-                  to={`/courses/${id}/modules/${m.id}`}
-                  className={styles.mod}
-                >
-                  <span className={styles.modIndex}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className={styles.modBody}>
-                    <span className={styles.modTitle}>{m.title}</span>
-                    <span className={styles.modMeta}>
-                      {m.materials?.length || 0} матеріал(ів) · аналітика →
+                <div key={m.id} className={styles.studentMod}>
+                  <div className={styles.studentModHead}>
+                    <span className={styles.modIndex}>
+                      {String(i + 1).padStart(2, '0')}
                     </span>
-                  </span>
-                  <span className={styles.modGo}>→</span>
-                </Link>
+                    <span className={styles.modTitle}>{m.title}</span>
+                    <Link
+                      to={`/courses/${id}/modules/${m.id}`}
+                      className={styles.analyticsLink}
+                    >
+                      Аналітика →
+                    </Link>
+                  </div>
+                  {m.materials?.length > 0 && (
+                    <ul className={styles.matList}>
+                      {m.materials.map((mat) => (
+                        <li key={mat.id}>
+                          <Link
+                            to={`/courses/${id}/materials/${mat.id}`}
+                            className={styles.mat}
+                          >
+                            <span className={styles.matType}>
+                              {MATERIAL_LABEL[mat.material_type] ||
+                                mat.material_type}
+                            </span>
+                            <span>{mat.title}</span>
+                            {mat.file_name && (
+                              <span className={styles.matClip}>📎</span>
+                            )}
+                            <span className={styles.matGo}>→</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               ))}
             </div>
           ) : (

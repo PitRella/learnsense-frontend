@@ -86,4 +86,26 @@ export const api = {
 
   logActivity: (token, body) =>
     request('/analytics/activity-logs', { method: 'POST', token, body }),
+
+  materialUploadUrl: (token, materialId, body) =>
+    request(`/courses/materials/${materialId}/file/upload-url`, {
+      method: 'POST',
+      token,
+      body,
+    }),
+  materialDownloadUrl: (token, materialId) =>
+    request(`/courses/materials/${materialId}/file`, { token }),
+}
+
+// Upload a file straight to object storage using a presigned PUT URL.
+// This bypasses our API entirely — bytes go to MinIO/S3 directly.
+export async function putToStorage(uploadUrl, file) {
+  const res = await fetch(uploadUrl, {
+    method: 'PUT',
+    body: file,
+    headers: { 'Content-Type': file.type || 'application/octet-stream' },
+  })
+  if (!res.ok) {
+    throw new ApiError(res.status, 'Не вдалося завантажити файл у сховище')
+  }
 }

@@ -1,15 +1,21 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { Button } from '../components/ui/Button'
 import { Spinner } from '../components/ui/Spinner'
-import { useModules } from '../hooks/useApi'
+import {
+  useMaterialDownload,
+  useModules,
+  useUploadMaterialFile,
+} from '../hooks/useApi'
 import { api } from '../lib/api'
 import { useAuth } from '../lib/auth'
 import styles from './MaterialPage.module.css'
 
 const TYPE_LABEL = { TEXT: 'Конспект', VIDEO: 'Відео', TEST: 'Тест' }
 const MIN_LOGGED_SECONDS = 3
+const IMAGE_RE = /\.(png|jpe?g|gif|webp|svg)$/i
+const PDF_RE = /\.pdf$/i
 
 function isUrl(value) {
   return typeof value === 'string' && /^https?:\/\//i.test(value.trim())
@@ -17,9 +23,9 @@ function isUrl(value) {
 
 export function MaterialPage() {
   const { courseId, materialId } = useParams()
+  const { isTeacher, token } = useAuth()
   const cId = Number(courseId)
   const mId = Number(materialId)
-  const { token } = useAuth()
   const { data: modules, isLoading } = useModules(cId)
 
   // The compiler memoizes this lookup automatically.
@@ -97,6 +103,18 @@ export function MaterialPage() {
           </div>
         )}
 
+        {material.file_name && (
+          <FileBlock materialId={mId} fileName={material.file_name} />
+        )}
+
+        {isTeacher && (
+          <UploadBlock
+            courseId={cId}
+            materialId={mId}
+            hasFile={Boolean(material.file_name)}
+          />
+        )}
+
         <p className={styles.footnote}>
           <span className={styles.recDot} />
           Час перегляду фіксується автоматично та враховується в індексі
@@ -143,6 +161,66 @@ function VideoBlock({ content }) {
             Відкрити відео у новій вкладці →
           </a>
         </p>
+      )}
+    </div>
+  )
+}
+
+function FileBlock({ materialId, fileName }) {
+  const { data, isLoading } = useMaterialDownload(materialId, true)
+  if (isLoading) return <Spinner label="Завантаження файлу…" />
+  if (!data) return null
+  const url = data.download_url
+  return (
+    <div className={styles.file}>
+      <div className={styles.fileHead}>
+        <span className={styles.fileName}>📎 {fileName}</span>
+        <a href={url} target="_blank" rel="noreferrer" download>
+          Завантажити →
+        </a>
+      </div>
+      {PDF_RE.test(fileName) ? (
+        <iframe className={styles.filePreview} title={fileName} src={url} />
+      ) : IMAGE_RE.test(fileName) ? (
+        <img className={styles.fileImage} src={url} alt={fileName} />
+      ) : null}
+    </div>
+  )
+}
+
+function UploadBlock({ courseId, materialId, hasFile }) {
+  const upload = useUploadMaterialFile(courseId)
+  const [name, setName] = useState(null)
+
+  function onPick(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setName(file.name)
+    upload.mutate({ materialId, file })
+  }
+
+  return (
+    <div className={styles.upload}>
+      <label className={styles.uploadLabel}>
+        <input
+          type="file"
+          onChange={onPick}
+          disabled={upload.isPending}
+          hidden
+        />
+        <span className={styles.uploadBtn}>
+          {upload.isPending
+            ? 'Завантаження…'
+            : hasFile
+              ? 'Замінити файл'
+              : 'Прикріпити файл'}
+        </span>
+      </label>
+      {upload.isError && (
+        <span className={styles.uploadErr}>Помилка завантаження</span>
+      )}
+      {upload.isSuccess && name && (
+        <span className={styles.uploadOk}>✓ {name}</span>
       )}
     </div>
   )

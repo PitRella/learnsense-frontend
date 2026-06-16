@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { api } from '../lib/api'
+import { api, putToStorage } from '../lib/api'
 import { useAuth } from '../lib/auth'
 
 export function useMe() {
@@ -82,6 +82,33 @@ export function useUpdateRecommendation() {
       api.updateRecommendation(token, id, status),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: ['recommendations'] }),
+  })
+}
+
+export function useMaterialDownload(materialId, enabled) {
+  const { token } = useAuth()
+  return useQuery({
+    queryKey: ['material-file', materialId],
+    queryFn: () => api.materialDownloadUrl(token, materialId),
+    enabled: Boolean(token && materialId && enabled),
+    staleTime: 10 * 60_000,
+  })
+}
+
+export function useUploadMaterialFile(courseId) {
+  const { token } = useAuth()
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ materialId, file }) => {
+      const { upload_url } = await api.materialUploadUrl(token, materialId, {
+        file_name: file.name,
+        content_type: file.type || 'application/octet-stream',
+      })
+      await putToStorage(upload_url, file)
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['modules', courseId] })
+    },
   })
 }
 

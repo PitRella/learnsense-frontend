@@ -119,14 +119,27 @@
   color: var(--ink);
   text-decoration: none;
 }
+/* second child (the title) grows so trailing icons align right */
+.mat > span:nth-child(2) {
+  flex: 1;
+}
 .matGo {
-  margin-left: auto;
   color: var(--pine);
   opacity: 0;
   transition: opacity 0.15s var(--ease);
 }
 .mat:hover .matGo {
   opacity: 1;
+}
+.matClip {
+  font-size: var(--text-xs);
+}
+.analyticsLink {
+  margin-left: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--pine);
+  white-space: nowrap;
 }
 .matType {
   font-size: var(--text-xs);
