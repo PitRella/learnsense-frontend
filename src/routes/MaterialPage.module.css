@@ -1,0 +1,127 @@
+.back {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  display: inline-flex;
+  gap: 6px;
+  margin-bottom: var(--sp-5);
+}
+.back:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-4);
+}
+.type {
+  font-weight: 600;
+  color: var(--pine);
+  background: var(--pine-tint);
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.title {
+  font-size: var(--text-2xl);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+/* Readable prose for TEXT materials. */
+.prose {
+  margin-top: var(--sp-6);
+  font-size: var(--text-md);
+  line-height: 1.7;
+  color: var(--ink);
+}
+.prose p {
+  margin-bottom: var(--sp-4);
+}
+.prose p:first-letter {
+  /* a subtle editorial drop-cap on the first paragraph */
+}
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.1em;
+  line-height: 0.8;
+  float: left;
+  padding: 6px 10px 0 0;
+  color: var(--clay);
+  font-weight: 500;
+}
+
+/* VIDEO material framing. */
+.video {
+  margin-top: var(--sp-6);
+}
+.videoFrame {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: var(--border);
+  background:
+    radial-gradient(60% 60% at 50% 40%, rgba(47, 90, 76, 0.08), transparent),
+    var(--paper-2);
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+  overflow: clip;
+}
+.videoFrame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.playMark {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--surface-raised);
+  border: 1px solid var(--hairline-strong);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow);
+}
+
+.test {
+  margin-top: var(--sp-6);
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.empty {
+  margin-top: var(--sp-6);
+  color: var(--ink-soft);
+  border: 1.5px dashed var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-7);
+  text-align: center;
+}
+
+.footnote {
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.recDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--clay);
+}
