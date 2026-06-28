@@ -101,6 +101,24 @@ export function useReadiness(courseId) {
   })
 }
 
+export function useMyRating() {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['my-rating'],
+    queryFn: () => api.myRating(),
+    enabled: isAuthenticated,
+  })
+}
+
+export function useCourseRating(courseId) {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['course-rating', courseId],
+    queryFn: () => api.courseRating(courseId),
+    enabled: isAuthenticated && Boolean(courseId),
+  })
+}
+
 export function useRecommendations({ poll = false } = {}) {
   const { isAuthenticated } = useAuth()
   return useQuery({

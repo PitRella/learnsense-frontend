@@ -1,0 +1,77 @@
+.boards {
+  display: grid;
+  gap: var(--sp-7);
+}
+.section {
+  display: grid;
+  gap: var(--sp-4);
+}
+.standing {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+.bigRank {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--pine);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+.ofTotal {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+.courseTitle {
+  font-weight: 600;
+  font-size: var(--text-md);
+}
+.percentile {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.boards .board {
+  display: grid;
+  gap: 2px;
+}
+.board {
+  padding: var(--sp-4) var(--sp-5) !important;
+}
+.boardTitle {
+  font-weight: 600;
+  margin-bottom: var(--sp-3);
+}
+.row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-2);
+  border-radius: var(--radius-sm);
+}
+.me {
+  background: var(--pine-tint);
+  font-weight: 600;
+}
+.rank {
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--ink-soft);
+}
+.name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.score {
+  font-weight: 700;
+  color: var(--pine);
+}

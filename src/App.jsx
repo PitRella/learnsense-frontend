@@ -41,6 +41,7 @@ const PlaceholderPage = named(
   () => import('./routes/PlaceholderPage'),
   'PlaceholderPage',
 )
+const RatingPage = named(() => import('./routes/RatingPage'), 'RatingPage')
 const CoursePage = named(() => import('./routes/CoursePage'), 'CoursePage')
 const ModulePerformancePage = named(
   () => import('./routes/ModulePerformancePage'),
@@ -99,17 +100,7 @@ export default function App() {
           element={<L><RecommendationsPage /></L>}
         />
         <Route path="settings" element={<L><SettingsPage /></L>} />
-        <Route
-          path="rating"
-          element={
-            <L>
-              <PlaceholderPage
-                title="Рейтинг"
-                note="Інтелектуальний рейтинг буде додано разом з модулем рейтингування."
-              />
-            </L>
-          }
-        />
+        <Route path="rating" element={<L><RatingPage /></L>} />
         <Route
           path="achievements"
           element={
