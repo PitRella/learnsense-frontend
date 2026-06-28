@@ -1,51 +1,56 @@
-/* LearnSense design tokens — "Editorial Academia".
-   Warm paper + ink, a single calm pine accent, terracotta/clay for warmth
-   and risk, olive for pass. Hairline borders, restrained radii, generous
-   rhythm. One serif display (Fraunces), one grotesque body (Hanken),
-   one mono for data figures (JetBrains Mono). */
+/* LearnSense design tokens — "Clean Console".
+   Near-white canvas, white cards with thin neutral borders, near-black
+   ink, a single blue accent, system fonts. shadcn/Vercel-style: minimal,
+   crisp, content-first. Variable names are kept stable so the whole app
+   re-themes from here. */
 
 :root {
-  /* — Paper & ink — */
-  --paper: #f3eee2;
-  --paper-2: #efe8d8;
-  --surface: #fcfaf3;
-  --surface-raised: #fffdf8;
-  --ink: #1f1b15;
-  --ink-soft: #6d655a;
-  --ink-faint: #9a9183;
-  --hairline: #e3dac8;
-  --hairline-strong: #d4c8b0;
+  /* — Surfaces & ink (neutral zinc scale) — */
+  --paper: #fbfbfb;
+  --paper-2: #f4f4f5;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --ink: #09090b;
+  --ink-soft: #52525b;
+  --ink-faint: #a1a1aa;
+  --hairline: #e4e4e7;
+  --hairline-strong: #d4d4d8;
 
   /* — Accents — */
-  --pine: #2f5a4c; /* brand / primary */
-  --pine-deep: #234539;
-  --pine-tint: #e7ede6;
-  --clay: #c0633b; /* warm highlight */
-  --clay-tint: #f3e4d6;
-  --gold: #a8842f; /* top-metric emphasis */
+  --pine: #2f5bea; /* brand / primary (blue) */
+  --pine-deep: #2348c8;
+  --pine-tint: #eaeffd;
+  --clay: #2f5bea; /* emphasis — same blue for a cohesive mono+blue look */
+  --clay-tint: #e8edfd;
+  --gold: #ca8a04; /* certificate / top-metric amber */
 
   /* — Semantic (analytics) — */
-  --risk: #b23b2e;
-  --risk-tint: #f3ddd6;
-  --pass: #4f6b3d;
-  --pass-tint: #e4ead9;
-  --watch: #b07e2b;
-  --watch-tint: #f1e6cd;
+  --risk: #dc2626;
+  --risk-tint: #fee2e2;
+  --pass: #16a34a;
+  --pass-tint: #dcfce7;
+  --watch: #ca8a04;
+  --watch-tint: #fef9c3;
 
-  /* — Type — */
-  --font-display: 'Fraunces', 'Georgia', serif;
-  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* — Type (system stack, no web fonts) — */
+  --font-display:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-body:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.85rem;
-  --text-base: 0.975rem;
-  --text-md: 1.075rem;
-  --text-lg: 1.35rem;
-  --text-xl: 1.85rem;
-  --text-2xl: 2.6rem;
-  --text-3xl: 3.6rem;
-  --text-display: clamp(3rem, 7vw, 5.5rem);
+  --text-base: 0.95rem;
+  --text-md: 1.05rem;
+  --text-lg: 1.3rem;
+  --text-xl: 1.7rem;
+  --text-2xl: 2.2rem;
+  --text-3xl: 3rem;
+  --text-display: clamp(2.6rem, 6vw, 4.5rem);
 
   /* — Spacing scale — */
   --sp-1: 4px;
@@ -59,16 +64,16 @@
   --sp-9: 96px;
 
   /* — Radii & lines — */
-  --radius-sm: 5px;
-  --radius: 9px;
-  --radius-lg: 16px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
   --border: 1px solid var(--hairline);
   --border-strong: 1px solid var(--hairline-strong);
 
-  /* — Shadows (soft, paper-like) — */
-  --shadow-sm: 0 1px 2px rgba(40, 30, 16, 0.05);
-  --shadow: 0 6px 24px -12px rgba(40, 30, 16, 0.22);
-  --shadow-lg: 0 24px 60px -28px rgba(40, 30, 16, 0.32);
+  /* — Shadows (subtle, neutral) — */
+  --shadow-sm: 0 1px 2px rgba(9, 9, 11, 0.05);
+  --shadow: 0 1px 3px rgba(9, 9, 11, 0.08), 0 4px 12px -4px rgba(9, 9, 11, 0.06);
+  --shadow-lg: 0 12px 32px -8px rgba(9, 9, 11, 0.14);
 
   /* — Motion — */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

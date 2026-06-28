@@ -45,7 +45,7 @@
   max-width: 11ch;
 }
 .headline em {
-  font-style: italic;
+  font-style: normal;
   color: var(--clay);
 }
 

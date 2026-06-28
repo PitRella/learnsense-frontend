@@ -29,9 +29,9 @@
   animation: rpulse 1.8s var(--ease) infinite;
 }
 @keyframes rpulse {
-  0% { box-shadow: 0 0 0 0 rgba(192, 99, 59, 0.5); }
-  70% { box-shadow: 0 0 0 7px rgba(192, 99, 59, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(192, 99, 59, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(47, 91, 234, 0.5); }
+  70% { box-shadow: 0 0 0 7px rgba(47, 91, 234, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 91, 234, 0); }
 }
 
 .card {

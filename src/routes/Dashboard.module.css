@@ -10,7 +10,7 @@
   letter-spacing: -0.025em;
 }
 .title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--clay);
 }
 .subtitle {

@@ -1,4 +1,4 @@
-// Wordmark: a small index-arc mark + "LearnSense" set in the display serif.
+// Wordmark: a small index-arc mark + "LearnSense" in the display sans.
 export function Logo({ size = 22, showText = true, muted = false }) {
   const ink = muted ? 'var(--ink-soft)' : 'var(--ink)'
   return (
@@ -31,13 +31,13 @@ export function Logo({ size = 22, showText = true, muted = false }) {
         <span
           style={{
             fontFamily: 'var(--font-display)',
-            fontWeight: 600,
+            fontWeight: 650,
             fontSize: '1.18rem',
             letterSpacing: '-0.02em',
             color: ink,
           }}
         >
-          Learn<span style={{ fontStyle: 'italic' }}>Sense</span>
+          Learn<span style={{ color: 'var(--pine)' }}>Sense</span>
         </span>
       )}
     </span>
