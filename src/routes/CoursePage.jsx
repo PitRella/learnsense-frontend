@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { CourseStudents } from '../components/CourseStudents'
+import { ReadinessPanel } from '../components/ReadinessPanel'
 import { WeightsPanel } from '../components/WeightsPanel'
 import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
@@ -54,6 +55,7 @@ export function CoursePage() {
     return (
       <div>
         {header}
+        <ReadinessPanel courseId={id} />
         <p className={styles.sectionLabel}>Навчальні модулі</p>
         {isLoading ? (
           <Spinner label="Завантаження модулів…" />

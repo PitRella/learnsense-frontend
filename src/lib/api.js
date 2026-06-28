@@ -95,6 +95,8 @@ export const api = {
 
   modulePerformance: (moduleId) =>
     request(`/analytics/modules/${moduleId}/performance`),
+  courseReadiness: (courseId) =>
+    request(`/analytics/courses/${courseId}/readiness`),
 
   listRecommendations: () => request('/recommendations/'),
   updateRecommendation: (id, status) =>

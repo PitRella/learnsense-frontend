@@ -92,6 +92,15 @@ export function useModulePerformance(moduleId, { poll = false } = {}) {
   })
 }
 
+export function useReadiness(courseId) {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['readiness', courseId],
+    queryFn: () => api.courseReadiness(courseId),
+    enabled: isAuthenticated && Boolean(courseId),
+  })
+}
+
 export function useRecommendations({ poll = false } = {}) {
   const { isAuthenticated } = useAuth()
   return useQuery({
