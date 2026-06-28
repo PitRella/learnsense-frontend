@@ -117,7 +117,7 @@ function QuizRunner({ materialId, moduleId, questions }) {
 }
 
 // Pop-up shown right after a test: the score, plus the personal advice the
-// analytics engine produces for this module — revealed as it arrives,
+// analytics engine produces for this module - revealed as it arrives,
 // rather than tucked away on a separate tab.
 function TestResultModal({ result, moduleId, onRetry, onClose }) {
   const passed = result.score >= 50
@@ -221,13 +221,14 @@ function TestResultModal({ result, moduleId, onRetry, onClose }) {
                   rec={rec}
                   pending={update.isPending}
                   onMark={(status) => update.mutate({ id: rec.id, status })}
+                  onNavigate={onClose}
                 />
               ))}
             </>
           ) : waited ? (
             <p className={styles.recHint}>
               {passed
-                ? 'Так тримати — гарний результат! Можна переходити далі.'
+                ? 'Так тримати - гарний результат! Можна переходити далі.'
                 : 'Радимо переглянути матеріал ще раз і спробувати знову.'}
             </p>
           ) : (

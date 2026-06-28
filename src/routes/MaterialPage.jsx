@@ -142,9 +142,7 @@ function Content({ content }) {
   return (
     <div className={styles.prose}>
       {paragraphs.map((p, i) => (
-        <p key={i} className={i === 0 ? styles.dropcap : undefined}>
-          {p}
-        </p>
+        <p key={i}>{p}</p>
       ))}
     </div>
   )

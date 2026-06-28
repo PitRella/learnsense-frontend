@@ -22,7 +22,7 @@ export function CompletedPage() {
         <Spinner label="Завантаження…" />
       ) : done.length === 0 ? (
         <div className={styles.state}>
-          <p>Ще немає завершених курсів — усе попереду!</p>
+          <p>Ще немає завершених курсів - усе попереду!</p>
         </div>
       ) : (
         <div className={styles.grid}>

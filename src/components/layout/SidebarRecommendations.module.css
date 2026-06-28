@@ -1,0 +1,80 @@
+.panel {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.heading {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 0 var(--sp-2);
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 8px var(--sp-2);
+  border-radius: var(--radius);
+  color: var(--ink);
+  transition: background 0.15s var(--ease);
+}
+.item:hover {
+  background: var(--surface);
+  text-decoration: none;
+}
+.icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  color: var(--accent, var(--pine));
+  background: color-mix(in srgb, var(--accent, var(--pine)) 12%, transparent);
+}
+.text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sub {
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chev {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  opacity: 0;
+  transition: opacity 0.15s var(--ease);
+}
+.item:hover .chev {
+  opacity: 1;
+}
+
+/* The sidebar collapses to a horizontal bar on small screens - the rail
+   would not fit there, so hide it. */
+@media (max-width: 860px) {
+  .panel {
+    display: none;
+  }
+}

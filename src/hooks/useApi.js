@@ -105,7 +105,7 @@ export function useModulePerformance(moduleId, { poll = false } = {}) {
     queryFn: () => api.modulePerformance(moduleId),
     enabled: isAuthenticated && Boolean(moduleId),
     // Background refresh so freshly computed indices appear without a
-    // manual reload — mirrors the client polling pattern from the spec.
+    // manual reload - mirrors the client polling pattern from the spec.
     refetchInterval: poll ? 4000 : false,
   })
 }
@@ -171,6 +171,15 @@ export function useCreateModule(courseId) {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (body) => api.createModule(courseId, body),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ['modules', courseId] }),
+  })
+}
+
+export function useCreateMaterial(courseId) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ moduleId, body }) => api.createMaterial(moduleId, body),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: ['modules', courseId] }),
   })

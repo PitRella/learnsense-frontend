@@ -1,36 +1,27 @@
+import { Link } from 'react-router-dom'
+
+import {
+  DEFAULT_META,
+  STATUS,
+  TYPE_META,
+  recLink,
+} from '../lib/recommendations'
 import { Badge } from './ui/Badge'
 import { Button } from './ui/Button'
 import { Card } from './ui/Card'
 import { Icon } from './ui/Icon'
 import styles from './RecommendationsPanel.module.css'
 
-const STATUS = {
-  CREATED: { tone: 'watch', label: 'Нова' },
-  VIEWED: { tone: 'neutral', label: 'Переглянуто' },
-  COMPLETED: { tone: 'pass', label: 'Виконано' },
-}
-
-// Per-template visual identity: a line icon + accent colour + short label.
-const TYPE_META = {
-  AT_RISK_ALERT: { icon: 'alertTriangle', color: 'var(--risk)', label: 'Зона ризику' },
-  REVIEW_THEORY: { icon: 'bookOpen', color: 'var(--clay)', label: 'Повторення' },
-  ADDITIONAL_MATERIAL: { icon: 'plus', color: 'var(--clay)', label: 'Додатково' },
-  RETRY_TEST: { icon: 'rotate', color: 'var(--watch)', label: 'Повторний тест' },
-  PRACTICE_REMINDER: { icon: 'pencil', color: 'var(--watch)', label: 'Практика' },
-  REINFORCE_AFTER_PASS: { icon: 'check', color: 'var(--pass)', label: 'Закріплення' },
-  NEXT_MODULE: { icon: 'arrowRight', color: 'var(--pine)', label: 'Наступний модуль' },
-  STRONG_PROGRESS: { icon: 'star', color: 'var(--pass)', label: 'Чудово' },
-  TOPIC_SEQUENCE: { icon: 'listOrdered', color: 'var(--pine)', label: 'Послідовність' },
-  CERTIFICATE_PROGRESS: { icon: 'award', color: 'var(--gold)', label: 'Сертифікат' },
-  LEARNING_TRAJECTORY: { icon: 'compass', color: 'var(--pine)', label: 'Траєкторія' },
-  PACE_REGULARITY: { icon: 'clock', color: 'var(--gold)', label: 'Регулярність' },
-}
-const DEFAULT_META = { icon: 'lightbulb', color: 'var(--pine)', label: 'Порада' }
-
-/** A single recommendation card. `onMark(status)` advances its status. */
-export function RecommendationCard({ rec, onMark, pending = false }) {
+/**
+ * A single recommendation card.
+ * `onMark(status)` advances its status; `onNavigate` fires when the
+ * student follows the suggested link (e.g. to close a hosting modal).
+ */
+export function RecommendationCard({ rec, onMark, onNavigate, pending = false }) {
   const status = STATUS[rec.status] || STATUS.CREATED
   const meta = TYPE_META[rec.recommendation_type] || DEFAULT_META
+  const link = recLink(rec)
+
   return (
     <Card accentTop accentColor={meta.color} className={styles.card}>
       <div
@@ -51,6 +42,17 @@ export function RecommendationCard({ rec, onMark, pending = false }) {
           {rec.module_title && <span>· {rec.module_title}</span>}
           <Badge tone={status.tone}>{status.label}</Badge>
         </div>
+        {link && (
+          <Link
+            to={link.to}
+            className={styles.cardLink}
+            style={{ color: meta.color }}
+            onClick={onNavigate}
+          >
+            {link.label}
+            <Icon name="arrowRight" size={15} />
+          </Link>
+        )}
       </div>
 
       {onMark && (

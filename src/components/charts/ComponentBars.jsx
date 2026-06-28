@@ -1,5 +1,5 @@
 // Horizontal breakdown of the three normalized index components (A/B/T)
-// with their weights — shows how the integral index was composed.
+// with their weights - shows how the integral index was composed.
 const ROWS = [
   { key: 'academic_score', label: 'Академічна (A)', color: 'var(--pine)' },
   { key: 'engagement_score', label: 'Залученість (B)', color: 'var(--clay)' },

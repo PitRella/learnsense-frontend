@@ -90,6 +90,11 @@ export const api = {
   getModules: (courseId) => request(`/courses/${courseId}/modules`),
   createModule: (courseId, body) =>
     request(`/courses/${courseId}/modules`, { method: 'POST', body }),
+  createMaterial: (moduleId, body) =>
+    request(`/courses/modules/${moduleId}/materials`, {
+      method: 'POST',
+      body,
+    }),
   updateWeights: (courseId, body) =>
     request(`/courses/${courseId}/weights`, { method: 'PUT', body }),
 
@@ -138,7 +143,7 @@ export const api = {
 }
 
 // Upload a file straight to object storage using a presigned PUT URL.
-// This bypasses our API entirely — bytes go to MinIO/S3 directly.
+// This bypasses our API entirely - bytes go to MinIO/S3 directly.
 export async function putToStorage(uploadUrl, file) {
   const res = await fetch(uploadUrl, {
     method: 'PUT',

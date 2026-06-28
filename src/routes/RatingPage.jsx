@@ -69,7 +69,7 @@ export function RatingPage() {
           </h1>
           <p className={styles.subtitle}>
             Інтелектуальний рейтинг враховує успішність, спроби,
-            регулярність та активність — не лише бали.
+            регулярність та активність - не лише бали.
           </p>
         </header>
         <div className={rstyles.boards}>

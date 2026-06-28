@@ -136,6 +136,82 @@
   align-items: center;
   color: var(--ink-faint);
 }
+
+/* - Teacher: add-material affordance - */
+.addMatBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--sp-3);
+  padding: 6px 10px;
+  border: 1px dashed var(--hairline-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+.addMatBtn:hover {
+  border-color: var(--pine);
+  color: var(--pine);
+}
+.matForm {
+  margin-top: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.matFormRow {
+  display: flex;
+  gap: var(--sp-3);
+}
+.matInput,
+.matSelect,
+.matTextarea {
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  padding: 9px var(--sp-3);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  transition: border-color 0.15s var(--ease);
+}
+.matInput {
+  flex: 1;
+  min-width: 0;
+}
+.matSelect {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.matTextarea {
+  resize: vertical;
+}
+.matInput:focus,
+.matSelect:focus,
+.matTextarea:focus {
+  outline: none;
+  border-color: var(--pine);
+}
+.matHint {
+  font-size: var(--text-sm);
+  color: var(--ink-faint);
+}
+.matErr {
+  font-size: var(--text-sm);
+  color: var(--risk);
+}
+.matFormActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
 .analyticsLink {
   margin-left: auto;
   font-size: var(--text-sm);

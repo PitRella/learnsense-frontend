@@ -73,6 +73,19 @@
   font-size: var(--text-xs);
   color: var(--ink-faint);
 }
+.cardLink {
+  margin-top: var(--sp-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.cardLink:hover {
+  text-decoration: none;
+  gap: 9px;
+}
+
 .actions {
   display: flex;
   gap: var(--sp-2);

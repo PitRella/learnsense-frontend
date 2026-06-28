@@ -2,9 +2,9 @@ import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { AuthAside } from '../components/AuthAside'
 import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
-import { Logo } from '../components/ui/Logo'
 import { api, ApiError } from '../lib/api'
 import { useAuth } from '../lib/auth'
 import styles from './LoginPage.module.css'
@@ -62,41 +62,15 @@ export function RegisterPage() {
 
   return (
     <div className={styles.wrap}>
-      <section className={styles.brand}>
-        <motion.div variants={reveal} initial="hidden" animate="show" custom={0}>
-          <Logo size={24} />
-        </motion.div>
-        <div>
-          <motion.p
-            className={styles.kicker}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={1}
-          >
-            Приєднуйтесь
-          </motion.p>
-          <motion.h1
-            className={styles.headline}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={2}
-          >
-            Почніть <em>вимірювати</em> прогрес.
-          </motion.h1>
-          <motion.p
-            className={styles.lede}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={3}
-          >
-            Один обліковий запис — для студентів і викладачів. Роль
-            визначає, що ви побачите далі.
-          </motion.p>
-        </div>
-      </section>
+      <AuthAside
+        kicker="Створення акаунту"
+        title={
+          <>
+            Приєднуйтесь і <em>вимірюйте</em> прогрес.
+          </>
+        }
+        lede="Один обліковий запис для студентів і викладачів. Роль визначає, що ви побачите далі."
+      />
 
       <section className={styles.panel}>
         <motion.form
@@ -109,7 +83,7 @@ export function RegisterPage() {
         >
           <div className={styles.formHead}>
             <h2>Створити акаунт</h2>
-            <p>Заповніть дані — і одразу до системи.</p>
+            <p>Кілька полів, і ви одразу в системі.</p>
           </div>
 
           {error && <div className={styles.errorBox}>{error}</div>}

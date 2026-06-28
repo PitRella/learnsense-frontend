@@ -1,7 +1,7 @@
 import { useId } from 'react'
 
 // Semicircular gauge for the integral performance index (0..1), with a
-// threshold tick (theta). Pure SVG — no chart library.
+// threshold tick (theta). Pure SVG - no chart library.
 const TAU = Math.PI
 
 function polar(cx, cy, r, t) {

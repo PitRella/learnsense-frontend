@@ -51,16 +51,6 @@
 .prose p:first-letter {
   /* a subtle editorial drop-cap on the first paragraph */
 }
-.dropcap::first-letter {
-  font-family: var(--font-display);
-  font-size: 3.1em;
-  line-height: 0.8;
-  float: left;
-  padding: 6px 10px 0 0;
-  color: var(--clay);
-  font-weight: 500;
-}
-
 /* VIDEO material framing. */
 .video {
   margin-top: var(--sp-6);

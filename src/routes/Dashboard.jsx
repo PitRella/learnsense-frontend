@@ -1,16 +1,76 @@
-import { motion } from 'motion/react'
-import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'motion/react'
+import { useMemo, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
+import { Field } from '../components/ui/Field'
+import { Modal } from '../components/ui/Modal'
 import { Spinner } from '../components/ui/Spinner'
-import { useCourses } from '../hooks/useApi'
+import { useCourses, useCreateCourse } from '../hooks/useApi'
 import { useAuth } from '../lib/auth'
 import styles from './Dashboard.module.css'
+
+function CreateCourseModal({ onClose }) {
+  const navigate = useNavigate()
+  const create = useCreateCourse()
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+
+  function submit(e) {
+    e.preventDefault()
+    if (!title.trim()) return
+    create.mutate(
+      { title: title.trim(), description: description.trim() || null },
+      { onSuccess: (course) => navigate(`/courses/${course.id}`) },
+    )
+  }
+
+  return (
+    <Modal title="Новий курс" onClose={onClose}>
+      <form className={styles.form} onSubmit={submit}>
+        <Field
+          label="Назва курсу"
+          placeholder="напр. Алгоритми та структури даних"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          autoFocus
+        />
+        <label className={styles.formLabel}>
+          Опис
+          <textarea
+            className={styles.textarea}
+            placeholder="Короткий опис курсу (необовʼязково)"
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
+        {create.isError && (
+          <p className={styles.formError}>
+            {create.error?.detail || 'Не вдалося створити курс'}
+          </p>
+        )}
+        <div className={styles.formActions}>
+          <Button type="button" variant="ghost" onClick={onClose}>
+            Скасувати
+          </Button>
+          <Button
+            type="submit"
+            disabled={!title.trim() || create.isPending}
+          >
+            {create.isPending ? 'Створення…' : 'Створити курс'}
+          </Button>
+        </div>
+      </form>
+    </Modal>
+  )
+}
 
 export function Dashboard() {
   const { userId } = useAuth()
   const { data, isLoading, isError, error } = useCourses()
+  const [creating, setCreating] = useState(false)
 
   // Show the teacher only their own courses (scoped by JWT subject).
   const courses = useMemo(() => {
@@ -47,14 +107,20 @@ export function Dashboard() {
             вагові коефіцієнти.
           </p>
         </div>
-        <span className={styles.count}>
-          {courses.length} {courses.length === 1 ? 'курс' : 'курсів'}
-        </span>
+        <div className={styles.headActions}>
+          <span className={styles.count}>
+            {courses.length} {courses.length === 1 ? 'курс' : 'курсів'}
+          </span>
+          <Button onClick={() => setCreating(true)}>Створити курс</Button>
+        </div>
       </header>
 
       {courses.length === 0 ? (
         <div className={`${styles.state} ${styles.empty}`}>
           <p>Поки що немає курсів під вашим обліковим записом.</p>
+          <Button onClick={() => setCreating(true)}>
+            Створити перший курс
+          </Button>
         </div>
       ) : (
         <div className={styles.grid}>
@@ -109,6 +175,12 @@ export function Dashboard() {
           ))}
         </div>
       )}
+
+      <AnimatePresence>
+        {creating && (
+          <CreateCourseModal onClose={() => setCreating(false)} />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

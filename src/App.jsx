@@ -1,9 +1,10 @@
 import { Suspense, lazy } from 'react'
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { AppShell } from './components/layout/AppShell'
 import { Spinner } from './components/ui/Spinner'
 import { useAuth } from './lib/auth'
+import { LandingPage } from './routes/LandingPage'
 import { LoginPage } from './routes/LoginPage'
 import { RegisterPage } from './routes/RegisterPage'
 
@@ -49,15 +50,6 @@ function RouteFallback() {
   )
 }
 
-function RequireAuth({ children }) {
-  const { isAuthenticated } = useAuth()
-  const location = useLocation()
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location }} />
-  }
-  return children
-}
-
 // Wrap a lazy element in the shared Suspense fallback.
 function L({ children }) {
   return <Suspense fallback={<RouteFallback />}>{children}</Suspense>
@@ -71,17 +63,26 @@ function HomeIndex() {
 }
 
 export default function App() {
+  const { isAuthenticated } = useAuth()
+
+  // Public surface: a marketing landing page is the entry point, so a new
+  // visitor explores before being asked to sign up.
+  if (!isAuthenticated) {
+    return (
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    )
+  }
+
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route
-        element={
-          <RequireAuth>
-            <AppShell />
-          </RequireAuth>
-        }
-      >
+      <Route path="/login" element={<Navigate to="/" replace />} />
+      <Route path="/register" element={<Navigate to="/" replace />} />
+      <Route element={<AppShell />}>
         <Route index element={<HomeIndex />} />
         <Route path="catalog" element={<L><CatalogPage /></L>} />
         <Route path="favorites" element={<L><FavoritesPage /></L>} />

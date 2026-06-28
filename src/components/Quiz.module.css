@@ -45,7 +45,7 @@
   gap: var(--sp-4);
 }
 
-/* — Post-test result pop-up — */
+/* - Post-test result pop-up - */
 .overlay {
   position: fixed;
   inset: 0;
@@ -150,7 +150,7 @@
   font-size: var(--text-xs);
 }
 
-/* — Teacher authoring — */
+/* - Teacher authoring - */
 .author {
   margin-top: var(--sp-5);
   border: 1px dashed var(--hairline-strong);

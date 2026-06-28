@@ -5,6 +5,7 @@ import { useAuth } from '../../lib/auth'
 import { Button } from '../ui/Button'
 import { Icon } from '../ui/Icon'
 import { Logo } from '../ui/Logo'
+import { SidebarRecommendations } from './SidebarRecommendations'
 import styles from './AppShell.module.css'
 
 const cx = (...c) => c.filter(Boolean).join(' ')
@@ -56,6 +57,8 @@ export function AppShell() {
             </NavLink>
           ))}
         </nav>
+
+        {!isTeacher && <SidebarRecommendations />}
 
         <div className={styles.user}>
           <div className={styles.userRow}>

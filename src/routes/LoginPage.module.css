@@ -4,15 +4,34 @@
   grid-template-columns: 1.05fr 0.95fr;
 }
 
-/* Left — editorial brand statement on warm paper. */
+/* Left: brand panel with the product pitch and key capabilities. */
 .brand {
   position: relative;
-  padding: var(--sp-8) var(--sp-8) var(--sp-7);
+  padding: var(--sp-7) var(--sp-8);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--sp-7);
   border-right: var(--border);
   overflow: hidden;
+}
+.brandTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.backHome {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.backHome:hover {
+  color: var(--ink);
+  text-decoration: none;
 }
 .brand::after {
   /* faint oversized index-arc watermark */
@@ -37,12 +56,14 @@
   color: var(--ink-faint);
 }
 
+.brandCopy {
+  margin-top: var(--sp-2);
+}
 .headline {
-  font-size: var(--text-display);
-  line-height: 0.98;
+  font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+  line-height: 1.04;
   letter-spacing: -0.03em;
-  margin-top: auto;
-  max-width: 11ch;
+  max-width: 14ch;
 }
 .headline em {
   font-style: normal;
@@ -50,36 +71,50 @@
 }
 
 .lede {
-  margin-top: var(--sp-5);
-  max-width: 42ch;
+  margin-top: var(--sp-4);
+  max-width: 44ch;
   color: var(--ink-soft);
   font-size: var(--text-md);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-.metaRow {
-  margin-top: var(--sp-7);
+.featureList {
+  list-style: none;
   display: flex;
-  gap: var(--sp-6);
+  flex-direction: column;
+  gap: var(--sp-4);
 }
-.metaItem {
+.feature {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+.featureIcon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  color: var(--pine);
+  background: var(--pine-tint);
+}
+.featureText {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.metaItem b {
-  font-family: var(--font-mono);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--pine);
+.featureText b {
+  font-size: var(--text-sm);
+  font-weight: 650;
 }
-.metaItem span {
-  font-size: var(--text-xs);
-  color: var(--ink-faint);
-  letter-spacing: 0.04em;
+.featureText span {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  line-height: 1.45;
 }
 
-/* Right — the sign-in panel. */
+/* Right - the sign-in panel. */
 .panel {
   display: flex;
   align-items: center;

@@ -9,7 +9,12 @@ import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
 import { Icon } from '../components/ui/Icon'
 import { Spinner } from '../components/ui/Spinner'
-import { useCourses, useCreateModule, useModules } from '../hooks/useApi'
+import {
+  useCourses,
+  useCreateMaterial,
+  useCreateModule,
+  useModules,
+} from '../hooks/useApi'
 import { useAuth } from '../lib/auth'
 import styles from './CoursePage.module.css'
 
@@ -17,6 +22,122 @@ const MATERIAL_LABEL = {
   TEXT: 'Конспект',
   VIDEO: 'Відео',
   TEST: 'Тест',
+}
+
+const MATERIAL_TYPES = [
+  { value: 'TEXT', label: 'Конспект' },
+  { value: 'VIDEO', label: 'Відео' },
+  { value: 'TEST', label: 'Тест' },
+]
+
+// Per-module "add material" affordance for teachers: a collapsed button
+// that expands into a small typed form (lecture text, video link, or a
+// test whose questions are authored on the material page afterwards).
+function ModuleMaterialForm({ courseId, moduleId }) {
+  const create = useCreateMaterial(courseId)
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState('')
+  const [type, setType] = useState('TEXT')
+  const [content, setContent] = useState('')
+
+  function reset() {
+    setTitle('')
+    setType('TEXT')
+    setContent('')
+    setOpen(false)
+  }
+
+  function submit(e) {
+    e.preventDefault()
+    if (!title.trim()) return
+    create.mutate(
+      {
+        moduleId,
+        body: {
+          title: title.trim(),
+          material_type: type,
+          content: content.trim() || null,
+        },
+      },
+      { onSuccess: reset },
+    )
+  }
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        className={styles.addMatBtn}
+        onClick={() => setOpen(true)}
+      >
+        <Icon name="plus" size={14} /> Додати матеріал
+      </button>
+    )
+  }
+
+  return (
+    <form className={styles.matForm} onSubmit={submit}>
+      <div className={styles.matFormRow}>
+        <input
+          className={styles.matInput}
+          placeholder="Назва матеріалу"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          autoFocus
+        />
+        <select
+          className={styles.matSelect}
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
+          {MATERIAL_TYPES.map((t) => (
+            <option key={t.value} value={t.value}>
+              {t.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      {type === 'TEXT' && (
+        <textarea
+          className={styles.matTextarea}
+          rows={4}
+          placeholder="Текст конспекту"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      )}
+      {type === 'VIDEO' && (
+        <input
+          className={styles.matInput}
+          placeholder="Посилання на відео (https://…)"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      )}
+      {type === 'TEST' && (
+        <p className={styles.matHint}>
+          Питання тесту можна додати на сторінці матеріалу після створення.
+        </p>
+      )}
+      {create.isError && (
+        <p className={styles.matErr}>
+          {create.error?.detail || 'Не вдалося додати матеріал'}
+        </p>
+      )}
+      <div className={styles.matFormActions}>
+        <Button type="button" variant="ghost" size="sm" onClick={reset}>
+          Скасувати
+        </Button>
+        <Button
+          type="submit"
+          size="sm"
+          disabled={!title.trim() || create.isPending}
+        >
+          {create.isPending ? 'Додавання…' : 'Додати'}
+        </Button>
+      </div>
+    </form>
+  )
 }
 
 export function CoursePage() {
@@ -52,7 +173,7 @@ export function CoursePage() {
     </>
   )
 
-  // — Student: read-only module + material outline —
+  // - Student: read-only module + material outline -
   if (!isTeacher) {
     return (
       <div>
@@ -98,7 +219,7 @@ export function CoursePage() {
     )
   }
 
-  // — Teacher: modules link to analytics + weight configuration —
+  // - Teacher: modules link to analytics + weight configuration -
   return (
     <div>
       {header}
@@ -148,6 +269,7 @@ export function CoursePage() {
                       ))}
                     </ul>
                   )}
+                  <ModuleMaterialForm courseId={id} moduleId={m.id} />
                 </div>
               ))}
             </div>

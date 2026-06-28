@@ -104,3 +104,50 @@
   border-radius: var(--radius-lg);
   padding: var(--sp-8);
 }
+
+.headActions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-shrink: 0;
+}
+
+/* - Create-course form (inside the modal) - */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.textarea {
+  font-family: inherit;
+  font-size: var(--text-base);
+  color: var(--ink);
+  padding: var(--sp-3);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  resize: vertical;
+  transition: border-color 0.15s var(--ease);
+}
+.textarea:focus {
+  outline: none;
+  border-color: var(--pine);
+}
+.formError {
+  color: var(--risk);
+  font-size: var(--text-sm);
+}
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}

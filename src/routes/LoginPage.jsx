@@ -2,9 +2,9 @@ import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
+import { AuthAside } from '../components/AuthAside'
 import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
-import { Logo } from '../components/ui/Logo'
 import { useAuth } from '../lib/auth'
 import styles from './LoginPage.module.css'
 
@@ -48,59 +48,15 @@ export function LoginPage() {
 
   return (
     <div className={styles.wrap}>
-      <section className={styles.brand}>
-        <motion.div variants={reveal} initial="hidden" animate="show" custom={0}>
-          <Logo size={24} />
-        </motion.div>
-
-        <div>
-          <motion.p
-            className={styles.kicker}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={1}
-          >
-            Навчальна аналітика · проактивно
-          </motion.p>
-          <motion.h1
-            className={styles.headline}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={2}
-          >
-            Успіх, <em>виміряний</em> вчасно.
-          </motion.h1>
-          <motion.p
-            className={styles.lede}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={3}
-          >
-            Інтегральний індекс успішності, зони ризику та персональні
-            рекомендації — щоб допомогти студенту до дедлайну, а не після.
-          </motion.p>
-
-          <motion.div
-            className={styles.metaRow}
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            custom={4}
-          >
-            <div className={styles.metaItem}>
-              <b>w₁·A + w₂·B + w₃·T</b>
-              <span>інтегральний індекс</span>
-            </div>
-            <div className={styles.metaItem}>
-              <b>cos(u,v)</b>
-              <span>гібридні рекомендації</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <AuthAside
+        kicker="Навчальна аналітика"
+        title={
+          <>
+            Помічайте ризик <em>раніше</em> за дедлайн.
+          </>
+        }
+        lede="LearnSense зводить успішність кожного студента в один індекс і підказує, кому потрібна увага вже сьогодні."
+      />
 
       <section className={styles.panel}>
         <motion.form
@@ -112,8 +68,8 @@ export function LoginPage() {
           custom={2}
         >
           <div className={styles.formHead}>
-            <h2>Вхід до системи</h2>
-            <p>Увійдіть, щоб перейти до аналітичної панелі.</p>
+            <h2>З поверненням</h2>
+            <p>Увійдіть, щоб продовжити роботу з платформою.</p>
           </div>
 
           {error && <div className={styles.errorBox}>{error}</div>}

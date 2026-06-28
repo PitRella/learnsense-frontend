@@ -1,11 +1,11 @@
-/* LearnSense design tokens — "Clean Console".
+/* LearnSense design tokens - "Clean Console".
    Near-white canvas, white cards with thin neutral borders, near-black
    ink, a single blue accent, system fonts. shadcn/Vercel-style: minimal,
    crisp, content-first. Variable names are kept stable so the whole app
    re-themes from here. */
 
 :root {
-  /* — Surfaces & ink (neutral zinc scale) — */
+  /* - Surfaces & ink (neutral zinc scale) - */
   --paper: #fbfbfb;
   --paper-2: #f4f4f5;
   --surface: #ffffff;
@@ -16,15 +16,15 @@
   --hairline: #e4e4e7;
   --hairline-strong: #d4d4d8;
 
-  /* — Accents — */
+  /* - Accents - */
   --pine: #2f5bea; /* brand / primary (blue) */
   --pine-deep: #2348c8;
   --pine-tint: #eaeffd;
-  --clay: #2f5bea; /* emphasis — same blue for a cohesive mono+blue look */
+  --clay: #2f5bea; /* emphasis - same blue for a cohesive mono+blue look */
   --clay-tint: #e8edfd;
   --gold: #ca8a04; /* certificate / top-metric amber */
 
-  /* — Semantic (analytics) — */
+  /* - Semantic (analytics) - */
   --risk: #dc2626;
   --risk-tint: #fee2e2;
   --pass: #16a34a;
@@ -32,7 +32,7 @@
   --watch: #ca8a04;
   --watch-tint: #fef9c3;
 
-  /* — Type (system stack, no web fonts) — */
+  /* - Type (system stack, no web fonts) - */
   --font-display:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
@@ -52,7 +52,7 @@
   --text-3xl: 3rem;
   --text-display: clamp(2.6rem, 6vw, 4.5rem);
 
-  /* — Spacing scale — */
+  /* - Spacing scale - */
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -63,19 +63,19 @@
   --sp-8: 64px;
   --sp-9: 96px;
 
-  /* — Radii & lines — */
+  /* - Radii & lines - */
   --radius-sm: 6px;
   --radius: 8px;
   --radius-lg: 12px;
   --border: 1px solid var(--hairline);
   --border-strong: 1px solid var(--hairline-strong);
 
-  /* — Shadows (subtle, neutral) — */
+  /* - Shadows (subtle, neutral) - */
   --shadow-sm: 0 1px 2px rgba(9, 9, 11, 0.05);
   --shadow: 0 1px 3px rgba(9, 9, 11, 0.08), 0 4px 12px -4px rgba(9, 9, 11, 0.06);
   --shadow-lg: 0 12px 32px -8px rgba(9, 9, 11, 0.14);
 
-  /* — Motion — */
+  /* - Motion - */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
