@@ -14,21 +14,39 @@ const STATUS = {
   COMPLETED: { tone: 'pass', label: 'Виконано' },
 }
 
+// Per-template visual identity: an icon + accent colour + short label.
+const TYPE_META = {
+  AT_RISK_ALERT: { icon: '⚠', color: 'var(--risk)', label: 'Зона ризику' },
+  REVIEW_THEORY: { icon: '📖', color: 'var(--clay)', label: 'Повторення' },
+  ADDITIONAL_MATERIAL: { icon: '➕', color: 'var(--clay)', label: 'Додатково' },
+  RETRY_TEST: { icon: '↻', color: 'var(--watch)', label: 'Повторний тест' },
+  PRACTICE_REMINDER: { icon: '✎', color: 'var(--watch)', label: 'Практика' },
+  REINFORCE_AFTER_PASS: { icon: '✓', color: 'var(--pass)', label: 'Закріплення' },
+  NEXT_MODULE: { icon: '→', color: 'var(--pine)', label: 'Наступний модуль' },
+  STRONG_PROGRESS: { icon: '★', color: 'var(--pass)', label: 'Чудово' },
+  TOPIC_SEQUENCE: { icon: '⇉', color: 'var(--pine)', label: 'Послідовність' },
+  CERTIFICATE_PROGRESS: { icon: '🎓', color: 'var(--gold)', label: 'Сертифікат' },
+  LEARNING_TRAJECTORY: { icon: '🧭', color: 'var(--pine)', label: 'Траєкторія' },
+  PACE_REGULARITY: { icon: '⏱', color: 'var(--gold)', label: 'Регулярність' },
+}
+const DEFAULT_META = { icon: '•', color: 'var(--pine)', label: 'Порада' }
+
 export function RecommendationsPanel() {
   const { data, isLoading } = useRecommendations({ poll: true })
   const update = useUpdateRecommendation()
 
-  // Defensive: collapse duplicate suggestions for the same material in a
-  // module (keep the most recent), so a concurrent generation race never
-  // shows the same advice twice.
+  // Defensive: collapse duplicates for the same (module, type) — keep the
+  // most recent — and order by relevance so the most urgent advice leads.
   const items = useMemo(() => {
     const byKey = new Map()
     for (const r of data || []) {
-      const key = `${r.module_id}:${r.material_id}`
+      const key = `${r.module_id ?? 'course'}:${r.recommendation_type}`
       const prev = byKey.get(key)
       if (!prev || r.id > prev.id) byKey.set(key, r)
     }
-    return [...byKey.values()].sort((a, b) => b.id - a.id)
+    return [...byKey.values()].sort(
+      (a, b) => b.relevance_score - a.relevance_score,
+    )
   }, [data])
 
   return (
@@ -57,7 +75,7 @@ export function RecommendationsPanel() {
         <AnimatePresence initial={false}>
           {items.map((rec) => {
             const status = STATUS[rec.status] || STATUS.CREATED
-            const pct = Math.round((rec.relevance_score || 0) * 100)
+            const meta = TYPE_META[rec.recommendation_type] || DEFAULT_META
             return (
               <motion.div
                 key={rec.id}
@@ -69,29 +87,27 @@ export function RecommendationsPanel() {
               >
                 <Card
                   accentTop
-                  accentColor="var(--clay)"
+                  accentColor={meta.color}
                   className={styles.card}
                 >
                   <div
-                    className={styles.scoreRing}
-                    style={{ '--score': pct }}
-                    title={`Релевантність ${pct}%`}
+                    className={styles.icon}
+                    style={{ '--accent': meta.color }}
+                    aria-hidden="true"
                   >
-                    <span className={styles.scoreInner}>{pct}</span>
+                    {meta.icon}
                   </div>
 
                   <div className={styles.body}>
                     <div className={styles.title}>
-                      {rec.material_title || `Матеріал #${rec.material_id}`}
+                      {rec.title || meta.label}
                     </div>
-                    <p className={styles.reason}>
-                      {rec.reason ||
-                        'Рекомендовано для усунення прогалини в проблемному модулі.'}
-                    </p>
+                    <p className={styles.reason}>{rec.reason}</p>
                     <div className={styles.meta}>
-                      <span>
-                        {rec.module_title || `Модуль #${rec.module_id}`}
+                      <span style={{ color: meta.color, fontWeight: 600 }}>
+                        {meta.label}
                       </span>
+                      {rec.module_title && <span>· {rec.module_title}</span>}
                       <Badge tone={status.tone}>{status.label}</Badge>
                     </div>
                   </div>

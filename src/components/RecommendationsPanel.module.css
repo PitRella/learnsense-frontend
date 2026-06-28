@@ -41,29 +41,16 @@
   align-items: center;
   padding: var(--sp-5);
 }
-.scoreRing {
-  width: 54px;
-  height: 54px;
+.icon {
+  width: 48px;
+  height: 48px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background:
-    conic-gradient(
-      var(--clay) calc(var(--score) * 1%),
-      var(--paper-2) 0
-    );
-}
-.scoreInner {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--surface-raised);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--ink);
+  border-radius: 12px;
+  font-size: 1.4rem;
+  color: var(--accent, var(--pine));
+  background: color-mix(in srgb, var(--accent, var(--pine)) 12%, transparent);
+  flex-shrink: 0;
 }
 .body {
   min-width: 0;
