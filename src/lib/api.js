@@ -73,6 +73,18 @@ export const api = {
   me: () => request('/auth/me'),
 
   listCourses: () => request('/courses/'),
+  courseCatalog: () => request('/courses/catalog'),
+  myProgress: () => request('/courses/my/progress'),
+  setFavorite: (courseId, on) =>
+    request(`/courses/${courseId}/favorite`, {
+      method: on ? 'PUT' : 'DELETE',
+    }),
+  courseStudents: (courseId) => request(`/courses/${courseId}/students`),
+  enroll: (courseId) =>
+    request('/courses/enrollments', {
+      method: 'POST',
+      body: { course_id: courseId },
+    }),
   createCourse: (body) =>
     request('/courses/', { method: 'POST', body }),
   getModules: (courseId) => request(`/courses/${courseId}/modules`),

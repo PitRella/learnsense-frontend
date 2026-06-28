@@ -22,6 +22,55 @@ export function useCourses() {
   })
 }
 
+export function useCatalog() {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['catalog'],
+    queryFn: () => api.courseCatalog(),
+    enabled: isAuthenticated,
+  })
+}
+
+export function useMyProgress() {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['my-progress'],
+    queryFn: () => api.myProgress(),
+    enabled: isAuthenticated,
+  })
+}
+
+export function useToggleFavorite() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ courseId, on }) => api.setFavorite(courseId, on),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['catalog'] })
+      qc.invalidateQueries({ queryKey: ['my-progress'] })
+    },
+  })
+}
+
+export function useEnroll() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (courseId) => api.enroll(courseId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['catalog'] })
+      qc.invalidateQueries({ queryKey: ['my-progress'] })
+    },
+  })
+}
+
+export function useCourseStudents(courseId) {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['course-students', courseId],
+    queryFn: () => api.courseStudents(courseId),
+    enabled: isAuthenticated && Boolean(courseId),
+  })
+}
+
 export function useModules(courseId) {
   const { isAuthenticated } = useAuth()
   return useQuery({

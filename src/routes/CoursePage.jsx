@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+import { CourseStudents } from '../components/CourseStudents'
 import { WeightsPanel } from '../components/WeightsPanel'
 import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
@@ -170,6 +171,8 @@ export function CoursePage() {
           {course ? <WeightsPanel course={course} /> : <Spinner label="…" />}
         </aside>
       </div>
+
+      <CourseStudents courseId={id} threshold={course?.pass_threshold} />
     </div>
   )
 }

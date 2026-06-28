@@ -7,26 +7,46 @@ import { useAuth } from './lib/auth'
 import { LoginPage } from './routes/LoginPage'
 import { RegisterPage } from './routes/RegisterPage'
 
-// Code-split the authenticated surfaces so the login screen stays light.
-const Dashboard = lazy(() =>
-  import('./routes/Dashboard').then((m) => ({ default: m.Dashboard })),
+// Code-split every authenticated surface so the login screen stays light.
+const named = (loader, name) =>
+  lazy(() => loader().then((m) => ({ default: m[name] })))
+
+const Dashboard = named(() => import('./routes/Dashboard'), 'Dashboard')
+const MyCoursesPage = named(
+  () => import('./routes/MyCoursesPage'),
+  'MyCoursesPage',
 )
-const StudentDashboard = lazy(() =>
-  import('./routes/StudentDashboard').then((m) => ({
-    default: m.StudentDashboard,
-  })),
+const CatalogPage = named(() => import('./routes/CatalogPage'), 'CatalogPage')
+const FavoritesPage = named(
+  () => import('./routes/FavoritesPage'),
+  'FavoritesPage',
 )
-const CoursePage = lazy(() =>
-  import('./routes/CoursePage').then((m) => ({ default: m.CoursePage })),
+const CompletedPage = named(
+  () => import('./routes/CompletedPage'),
+  'CompletedPage',
 )
-const ModulePerformancePage = lazy(() =>
-  import('./routes/ModulePerformancePage').then((m) => ({
-    default: m.ModulePerformancePage,
-  })),
+const CertificatesPage = named(
+  () => import('./routes/CertificatesPage'),
+  'CertificatesPage',
 )
-const MaterialPage = lazy(() =>
-  import('./routes/MaterialPage').then((m) => ({ default: m.MaterialPage })),
+const RecommendationsPage = named(
+  () => import('./routes/RecommendationsPage'),
+  'RecommendationsPage',
 )
+const SettingsPage = named(
+  () => import('./routes/SettingsPage'),
+  'SettingsPage',
+)
+const PlaceholderPage = named(
+  () => import('./routes/PlaceholderPage'),
+  'PlaceholderPage',
+)
+const CoursePage = named(() => import('./routes/CoursePage'), 'CoursePage')
+const ModulePerformancePage = named(
+  () => import('./routes/ModulePerformancePage'),
+  'ModulePerformancePage',
+)
+const MaterialPage = named(() => import('./routes/MaterialPage'), 'MaterialPage')
 
 function RouteFallback() {
   return (
@@ -45,15 +65,16 @@ function RequireAuth({ children }) {
   return children
 }
 
-// The home surface differs by role: analytics for teachers, courses +
-// personalized recommendations for students.
+// Wrap a lazy element in the shared Suspense fallback.
+function L({ children }) {
+  return <Suspense fallback={<RouteFallback />}>{children}</Suspense>
+}
+
+// The home surface differs by role: course analytics for teachers,
+// the "my courses" progress board for students.
 function HomeIndex() {
   const { isTeacher } = useAuth()
-  return (
-    <Suspense fallback={<RouteFallback />}>
-      {isTeacher ? <Dashboard /> : <StudentDashboard />}
-    </Suspense>
-  )
+  return <L>{isTeacher ? <Dashboard /> : <MyCoursesPage />}</L>
 }
 
 export default function App() {
@@ -69,29 +90,45 @@ export default function App() {
         }
       >
         <Route index element={<HomeIndex />} />
+        <Route path="catalog" element={<L><CatalogPage /></L>} />
+        <Route path="favorites" element={<L><FavoritesPage /></L>} />
+        <Route path="completed" element={<L><CompletedPage /></L>} />
+        <Route path="certificates" element={<L><CertificatesPage /></L>} />
         <Route
-          path="courses/:courseId"
+          path="recommendations"
+          element={<L><RecommendationsPage /></L>}
+        />
+        <Route path="settings" element={<L><SettingsPage /></L>} />
+        <Route
+          path="rating"
           element={
-            <Suspense fallback={<RouteFallback />}>
-              <CoursePage />
-            </Suspense>
+            <L>
+              <PlaceholderPage
+                title="Рейтинг"
+                note="Інтелектуальний рейтинг буде додано разом з модулем рейтингування."
+              />
+            </L>
           }
         />
         <Route
-          path="courses/:courseId/modules/:moduleId"
+          path="achievements"
           element={
-            <Suspense fallback={<RouteFallback />}>
-              <ModulePerformancePage />
-            </Suspense>
+            <L>
+              <PlaceholderPage
+                title="Досягнення"
+                note="Бейджі та досягнення зʼявляться у наступних оновленнях."
+              />
+            </L>
           }
+        />
+        <Route path="courses/:courseId" element={<L><CoursePage /></L>} />
+        <Route
+          path="courses/:courseId/modules/:moduleId"
+          element={<L><ModulePerformancePage /></L>}
         />
         <Route
           path="courses/:courseId/materials/:materialId"
-          element={
-            <Suspense fallback={<RouteFallback />}>
-              <MaterialPage />
-            </Suspense>
-          }
+          element={<L><MaterialPage /></L>}
         />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
