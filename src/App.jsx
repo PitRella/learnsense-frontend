@@ -29,17 +29,9 @@ const CertificatesPage = named(
   () => import('./routes/CertificatesPage'),
   'CertificatesPage',
 )
-const RecommendationsPage = named(
-  () => import('./routes/RecommendationsPage'),
-  'RecommendationsPage',
-)
 const SettingsPage = named(
   () => import('./routes/SettingsPage'),
   'SettingsPage',
-)
-const PlaceholderPage = named(
-  () => import('./routes/PlaceholderPage'),
-  'PlaceholderPage',
 )
 const RatingPage = named(() => import('./routes/RatingPage'), 'RatingPage')
 const CoursePage = named(() => import('./routes/CoursePage'), 'CoursePage')
@@ -95,23 +87,8 @@ export default function App() {
         <Route path="favorites" element={<L><FavoritesPage /></L>} />
         <Route path="completed" element={<L><CompletedPage /></L>} />
         <Route path="certificates" element={<L><CertificatesPage /></L>} />
-        <Route
-          path="recommendations"
-          element={<L><RecommendationsPage /></L>}
-        />
         <Route path="settings" element={<L><SettingsPage /></L>} />
         <Route path="rating" element={<L><RatingPage /></L>} />
-        <Route
-          path="achievements"
-          element={
-            <L>
-              <PlaceholderPage
-                title="Досягнення"
-                note="Бейджі та досягнення зʼявляться у наступних оновленнях."
-              />
-            </L>
-          }
-        />
         <Route path="courses/:courseId" element={<L><CoursePage /></L>} />
         <Route
           path="courses/:courseId/modules/:moduleId"

@@ -92,6 +92,7 @@
   display: grid;
   place-items: center;
   box-shadow: var(--shadow);
+  color: var(--pine);
 }
 
 .test {
@@ -125,6 +126,9 @@
   border-bottom: var(--border);
 }
 .fileName {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-weight: 600;
   font-size: var(--text-sm);
 }
@@ -169,6 +173,9 @@
   color: var(--risk);
 }
 .uploadOk {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: var(--text-sm);
   color: var(--pass);
 }

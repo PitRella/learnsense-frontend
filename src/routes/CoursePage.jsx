@@ -7,6 +7,7 @@ import { ReadinessPanel } from '../components/ReadinessPanel'
 import { WeightsPanel } from '../components/WeightsPanel'
 import { Button } from '../components/ui/Button'
 import { Field } from '../components/ui/Field'
+import { Icon } from '../components/ui/Icon'
 import { Spinner } from '../components/ui/Spinner'
 import { useCourses, useCreateModule, useModules } from '../hooks/useApi'
 import { useAuth } from '../lib/auth'
@@ -137,7 +138,9 @@ export function CoursePage() {
                             </span>
                             <span>{mat.title}</span>
                             {mat.file_name && (
-                              <span className={styles.matClip}>📎</span>
+                              <span className={styles.matClip}>
+                                <Icon name="paperclip" size={13} />
+                              </span>
                             )}
                             <span className={styles.matGo}>→</span>
                           </Link>

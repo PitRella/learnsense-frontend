@@ -1,4 +1,5 @@
 import { useCourseDifficulty, useCourseHeatmap } from '../hooks/useApi'
+import { Icon } from './ui/Icon'
 import { Spinner } from './ui/Spinner'
 import styles from './CourseAnalytics.module.css'
 
@@ -38,7 +39,9 @@ export function CourseAnalytics({ courseId }) {
                 ризик {Math.round(d.at_risk_ratio * 100)}% · {d.students} студ.
               </span>
               {d.flagged && d.hint && (
-                <span className={styles.diffHint}>⚑ {d.hint}</span>
+                <span className={styles.diffHint}>
+                  <Icon name="flag" size={13} /> {d.hint}
+                </span>
               )}
             </div>
           ))

@@ -20,7 +20,9 @@ export function FavoritesPage() {
         <Spinner label="Завантаження…" />
       ) : favorites.length === 0 ? (
         <div className={styles.state}>
-          <p>Поки що немає обраних курсів. Додайте їх ★ у каталозі.</p>
+          <p>
+            Поки що немає обраних курсів. Додайте їх до закладок у каталозі.
+          </p>
         </div>
       ) : (
         <div className={styles.grid}>

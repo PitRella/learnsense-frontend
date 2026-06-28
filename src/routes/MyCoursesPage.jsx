@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 import { Badge } from '../components/ui/Badge'
 import { Card } from '../components/ui/Card'
+import { Icon } from '../components/ui/Icon'
 import { Spinner } from '../components/ui/Spinner'
 import { useMe, useMyProgress } from '../hooks/useApi'
 import styles from './cabinet.module.css'
@@ -75,7 +76,14 @@ export function MyCoursesPage() {
                   <Badge tone="watch">У процесі</Badge>
                 )}
                 {c.certificate_eligible && (
-                  <Badge tone="neutral">🎓 Сертифікат</Badge>
+                  <Badge tone="neutral">
+                    <Icon
+                      name="award"
+                      size={13}
+                      style={{ verticalAlign: '-2px', marginRight: 4 }}
+                    />
+                    Сертифікат
+                  </Badge>
                 )}
                 <span
                   className="tnum"

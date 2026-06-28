@@ -67,9 +67,11 @@
   flex: 1;
 }
 .star {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
   border: 0;
   background: none;
-  font-size: 1.2rem;
   line-height: 1;
   cursor: pointer;
   color: var(--ink-faint);
@@ -142,14 +144,16 @@
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(120% 80% at 100% 0, rgba(168, 132, 47, 0.08), transparent),
+    radial-gradient(120% 80% at 100% 0, rgba(202, 138, 4, 0.08), transparent),
     var(--surface-raised);
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
 }
 .certSeal {
-  font-size: 1.6rem;
+  display: inline-flex;
+  color: var(--gold);
+  margin-bottom: var(--sp-1);
 }
 .certName {
   font-family: var(--font-display);

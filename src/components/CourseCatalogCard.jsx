@@ -4,6 +4,7 @@ import { useEnroll, useToggleFavorite } from '../hooks/useApi'
 import { Badge } from './ui/Badge'
 import { Button } from './ui/Button'
 import { Card } from './ui/Card'
+import { Icon } from './ui/Icon'
 import styles from '../routes/cabinet.module.css'
 
 export function CourseCatalogCard({ course }) {
@@ -26,7 +27,7 @@ export function CourseCatalogCard({ course }) {
             })
           }
         >
-          {course.is_favorite ? '★' : '☆'}
+          <Icon name="star" size={18} filled={course.is_favorite} />
         </button>
       </div>
       {course.description && (

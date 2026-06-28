@@ -1,4 +1,5 @@
 import { Card } from '../components/ui/Card'
+import { Icon } from '../components/ui/Icon'
 import { Spinner } from '../components/ui/Spinner'
 import {
   useCourseRating,
@@ -10,7 +11,17 @@ import { useAuth } from '../lib/auth'
 import styles from './cabinet.module.css'
 import rstyles from './RatingPage.module.css'
 
-const MEDAL = ['🥇', '🥈', '🥉']
+// Gold / silver / bronze for the top three places.
+const MEDAL_COLOR = ['#caa015', '#9aa1ad', '#b06a34']
+
+function Rank({ rank }) {
+  if (rank >= 1 && rank <= 3) {
+    return (
+      <Icon name="medal" size={20} style={{ color: MEDAL_COLOR[rank - 1] }} />
+    )
+  }
+  return <>{rank}</>
+}
 
 function Leaderboard({ courseId, title, meId }) {
   const { data, isLoading } = useCourseRating(courseId)
@@ -25,7 +36,7 @@ function Leaderboard({ courseId, title, meId }) {
           className={`${rstyles.row} ${r.student_id === meId ? rstyles.me : ''}`}
         >
           <span className={rstyles.rank}>
-            {MEDAL[r.rank - 1] || r.rank}
+            <Rank rank={r.rank} />
           </span>
           <span className={rstyles.name}>
             {r.name} {r.surname}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { Quiz } from '../components/Quiz'
+import { Icon } from '../components/ui/Icon'
 import { Spinner } from '../components/ui/Spinner'
 import {
   useMaterialDownload,
@@ -99,7 +100,11 @@ export function MaterialPage() {
         {material.material_type === 'TEST' && (
           <div className={styles.test}>
             <Content content={material.content} />
-            <Quiz materialId={mId} isTeacher={isTeacher} />
+            <Quiz
+              materialId={mId}
+              moduleId={module?.id}
+              isTeacher={isTeacher}
+            />
           </div>
         )}
 
@@ -152,7 +157,9 @@ function VideoBlock({ content }) {
         {isUrl(content) ? (
           <iframe title="Відео-матеріал" src={content} allowFullScreen />
         ) : (
-          <span className={styles.playMark}>▶</span>
+          <span className={styles.playMark}>
+            <Icon name="play" size={26} />
+          </span>
         )}
       </div>
       {isUrl(content) && (
@@ -174,7 +181,9 @@ function FileBlock({ materialId, fileName }) {
   return (
     <div className={styles.file}>
       <div className={styles.fileHead}>
-        <span className={styles.fileName}>📎 {fileName}</span>
+        <span className={styles.fileName}>
+          <Icon name="paperclip" size={15} /> {fileName}
+        </span>
         <a href={url} target="_blank" rel="noreferrer" download>
           Завантажити →
         </a>
@@ -220,7 +229,9 @@ function UploadBlock({ courseId, materialId, hasFile }) {
         <span className={styles.uploadErr}>Помилка завантаження</span>
       )}
       {upload.isSuccess && name && (
-        <span className={styles.uploadOk}>✓ {name}</span>
+        <span className={styles.uploadOk}>
+          <Icon name="check" size={14} /> {name}
+        </span>
       )}
     </div>
   )

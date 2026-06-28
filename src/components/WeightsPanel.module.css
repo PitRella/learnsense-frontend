@@ -66,6 +66,9 @@
   --accent: var(--ink);
 }
 .saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: var(--text-sm);
   color: var(--pass);
 }

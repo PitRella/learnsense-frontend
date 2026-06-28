@@ -1,4 +1,5 @@
 import { useMe, useMyProgress } from '../hooks/useApi'
+import { Icon } from '../components/ui/Icon'
 import { Spinner } from '../components/ui/Spinner'
 import styles from './cabinet.module.css'
 
@@ -31,7 +32,9 @@ export function CertificatesPage() {
         <div className={styles.grid}>
           {eligible.map((c) => (
             <div key={c.course_id} className={styles.cert}>
-              <span className={styles.certSeal}>🎓</span>
+              <span className={styles.certSeal}>
+                <Icon name="award" size={30} />
+              </span>
               <span className={styles.certName}>{c.title}</span>
               <span className={styles.certMeta}>
                 Сертифікат про успішне завершення

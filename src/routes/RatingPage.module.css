@@ -61,7 +61,9 @@
   font-weight: 600;
 }
 .rank {
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-mono);
   color: var(--ink-soft);
 }

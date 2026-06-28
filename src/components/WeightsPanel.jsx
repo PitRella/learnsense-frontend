@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useUpdateWeights } from '../hooks/useApi'
 import { Button } from './ui/Button'
 import { Card } from './ui/Card'
+import { Icon } from './ui/Icon'
 import styles from './WeightsPanel.module.css'
 
 const ROWS = [
@@ -119,7 +120,11 @@ export function WeightsPanel({ course }) {
             <span className={`tnum ${styles.sumOk}`}>{sum.toFixed(2)}</span>
           </span>
           <span style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'center' }}>
-            {saved && <span className={styles.saved}>Збережено ✓</span>}
+            {saved && (
+              <span className={styles.saved}>
+                <Icon name="check" size={14} /> Збережено
+              </span>
+            )}
             <Button
               size="sm"
               onClick={onSave}

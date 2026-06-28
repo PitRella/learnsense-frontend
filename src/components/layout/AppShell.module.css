@@ -51,10 +51,11 @@
   font-weight: 600;
 }
 .icon {
-  width: 18px;
-  text-align: center;
-  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  color: currentColor;
 }
 .navlabel {
   flex: 1;
@@ -91,6 +92,9 @@
   flex-shrink: 0;
 }
 .userMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
   min-width: 0;
 }
 .userName {

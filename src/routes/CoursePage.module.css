@@ -132,7 +132,9 @@
   opacity: 1;
 }
 .matClip {
-  font-size: var(--text-xs);
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-faint);
 }
 .analyticsLink {
   margin-left: auto;

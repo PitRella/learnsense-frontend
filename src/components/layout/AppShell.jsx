@@ -3,27 +3,26 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { useMe } from '../../hooks/useApi'
 import { useAuth } from '../../lib/auth'
 import { Button } from '../ui/Button'
+import { Icon } from '../ui/Icon'
 import { Logo } from '../ui/Logo'
 import styles from './AppShell.module.css'
 
 const cx = (...c) => c.filter(Boolean).join(' ')
 
 const STUDENT_NAV = [
-  { to: '/', label: 'Мої курси', icon: '◫', end: true },
-  { to: '/catalog', label: 'Каталог', icon: '⊞' },
-  { to: '/favorites', label: 'Обрані', icon: '★' },
-  { to: '/completed', label: 'Завершені', icon: '✓' },
-  { to: '/certificates', label: 'Сертифікати', icon: '🎓' },
-  { to: '/recommendations', label: 'Рекомендації', icon: '✦' },
-  { to: '/rating', label: 'Рейтинг', icon: '↑' },
-  { to: '/achievements', label: 'Досягнення', icon: '🏅' },
-  { to: '/settings', label: 'Налаштування', icon: '⚙' },
+  { to: '/', label: 'Мої курси', icon: 'grid', end: true },
+  { to: '/catalog', label: 'Каталог', icon: 'library' },
+  { to: '/favorites', label: 'Обрані', icon: 'star' },
+  { to: '/completed', label: 'Завершені', icon: 'checkCircle' },
+  { to: '/certificates', label: 'Сертифікати', icon: 'award' },
+  { to: '/rating', label: 'Рейтинг', icon: 'trendingUp' },
+  { to: '/settings', label: 'Налаштування', icon: 'settings' },
 ]
 
 const TEACHER_NAV = [
-  { to: '/', label: 'Курси', icon: '◫', end: true },
-  { to: '/rating', label: 'Рейтинг', icon: '↑' },
-  { to: '/settings', label: 'Налаштування', icon: '⚙' },
+  { to: '/', label: 'Курси', icon: 'grid', end: true },
+  { to: '/rating', label: 'Рейтинг', icon: 'trendingUp' },
+  { to: '/settings', label: 'Налаштування', icon: 'settings' },
 ]
 
 export function AppShell() {
@@ -50,7 +49,9 @@ export function AppShell() {
                 cx(styles.navlink, isActive && styles.active)
               }
             >
-              <span className={styles.icon}>{item.icon}</span>
+              <span className={styles.icon}>
+                <Icon name={item.icon} size={18} />
+              </span>
               <span className={styles.navlabel}>{item.label}</span>
             </NavLink>
           ))}
