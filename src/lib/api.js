@@ -100,6 +100,10 @@ export const api = {
   myRating: () => request('/analytics/my/rating'),
   courseRating: (courseId) =>
     request(`/analytics/courses/${courseId}/rating`),
+  courseDifficulty: (courseId) =>
+    request(`/analytics/courses/${courseId}/difficulty`),
+  courseHeatmap: (courseId) =>
+    request(`/analytics/courses/${courseId}/heatmap`),
 
   listRecommendations: () => request('/recommendations/'),
   updateRecommendation: (id, status) =>

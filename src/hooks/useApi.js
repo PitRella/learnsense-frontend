@@ -62,6 +62,24 @@ export function useEnroll() {
   })
 }
 
+export function useCourseDifficulty(courseId) {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['course-difficulty', courseId],
+    queryFn: () => api.courseDifficulty(courseId),
+    enabled: isAuthenticated && Boolean(courseId),
+  })
+}
+
+export function useCourseHeatmap(courseId) {
+  const { isAuthenticated } = useAuth()
+  return useQuery({
+    queryKey: ['course-heatmap', courseId],
+    queryFn: () => api.courseHeatmap(courseId),
+    enabled: isAuthenticated && Boolean(courseId),
+  })
+}
+
 export function useCourseStudents(courseId) {
   const { isAuthenticated } = useAuth()
   return useQuery({

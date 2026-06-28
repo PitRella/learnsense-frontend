@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+import { CourseAnalytics } from '../components/CourseAnalytics'
 import { CourseStudents } from '../components/CourseStudents'
 import { ReadinessPanel } from '../components/ReadinessPanel'
 import { WeightsPanel } from '../components/WeightsPanel'
@@ -175,6 +176,7 @@ export function CoursePage() {
       </div>
 
       <CourseStudents courseId={id} threshold={course?.pass_threshold} />
+      <CourseAnalytics courseId={id} />
     </div>
   )
 }

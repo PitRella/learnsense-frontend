@@ -1,0 +1,120 @@
+.wrap {
+  margin-top: var(--sp-8);
+  display: grid;
+  gap: var(--sp-7);
+}
+.label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-4);
+}
+
+/* difficulty */
+.diffRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+  border: var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: var(--sp-2);
+}
+.flagged {
+  border-color: var(--risk);
+  background: var(--risk-tint);
+}
+.diffName {
+  font-weight: 600;
+}
+.diffHint {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  color: var(--risk);
+}
+.pill {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.easy {
+  color: var(--pass);
+  background: var(--pass-tint);
+}
+.moderate {
+  color: var(--watch);
+  background: var(--watch-tint);
+}
+.hard {
+  color: var(--risk);
+  background: var(--risk-tint);
+}
+.diffMeta {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+/* heatmap */
+.heatScroll {
+  overflow-x: auto;
+}
+.heat {
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.heat th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--ink-soft);
+  padding: var(--sp-2) var(--sp-3);
+  vertical-align: bottom;
+}
+.heat th.modhead {
+  font-size: var(--text-xs);
+  max-width: 90px;
+  white-space: normal;
+  line-height: 1.2;
+}
+.heat td {
+  padding: 0;
+}
+.cell {
+  width: 64px;
+  height: 38px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink);
+  border: 2px solid var(--surface);
+  border-radius: 6px;
+}
+.empty {
+  background: var(--paper-2);
+  color: var(--ink-faint);
+}
+.namecell {
+  white-space: nowrap;
+  padding-right: var(--sp-4);
+  font-weight: 500;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+}
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+}
